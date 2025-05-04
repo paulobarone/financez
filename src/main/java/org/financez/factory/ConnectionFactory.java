@@ -19,6 +19,7 @@ public class ConnectionFactory {
 
   public static Connection getConnection() throws SQLException {
     if (currentConnection == null || currentConnection.isClosed()) {
+      
       currentConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
       System.out.println(ANSI_GREEN + "---------- Nova conexão estabelecida ----------" + ANSI_RESET);
     }
