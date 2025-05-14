@@ -17,7 +17,7 @@ utilizando **JSP**. Atualmente, o projeto está em fase de produção.
 - **Java**: Linguagem principal do projeto.
 - **JSP**: Planejado para a implementação do site.
 - **Maven**: Gerenciador de dependências.
-- **SQL**: Scripts para criação e manipulação do banco de dados.
+- **OracleDB**: Scripts para criação e manipulação do banco de dados.
 - **JDBC**: Conexão com o banco de dados Oracle.
 
 ## Estrutura do Projeto
