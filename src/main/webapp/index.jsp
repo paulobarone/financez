@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./resources/css/custom.css">
 </head>
 <body class="background-page">
-  <form class="container flex-column justify-content-center align-items-center gap-4 mt-5 p-4">
+  <form class="container flex-column justify-content-center align-items-center gap-4 mt-5 p-4" style="max-width: 500px;">
     <div class="text-center">
       <h1 class="m-0 text-white">Finance<span class="branding-text-color">Z</span></h1>
       <p class="text-white">Gerenciador de Finanças</p>
