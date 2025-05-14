@@ -1,0 +1,48 @@
+.branding-text-color {
+  color: #ED145B;
+}
+
+.branding-bg-color {
+  background-color: #ED145B;
+}
+
+.primary-button {
+  background-color: #ED145B;
+  color: white;
+  width: 90%;
+
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.background-page {
+  background-color: #161616;
+}
+
+.custom-input {
+  background-color: transparent;
+  border: 1px solid #6D6D6D;
+  color: #fff;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.custom-input::placeholder {
+  color: #6D6D6D;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.custom-input:focus {
+  color: #fff;
+  background-color: transparent;
+  outline: none;
+  border: 1px solid #ED145B;
+  box-shadow: none;
+}
