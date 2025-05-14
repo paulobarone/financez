@@ -20,7 +20,7 @@ public class InvestmentOptionDao {
 
     for (InvestmentOption option : investmentOptions) {
       try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO INVESTMENT_OPTIONS2 (NAME, RISK_LEVEL, RATE) VALUES (?, ?, ?)", new String[]{"id_investment_option2"});
+        PreparedStatement stm = connection.prepareStatement("INSERT INTO INVESTMENT_OPTIONS (NAME, RISK_LEVEL, RATE) VALUES (?, ?, ?)", new String[]{"id_investment_option"});
 
         stm.setString(1, option.getName());
         stm.setString(2, option.getRiskLevel().getDatabaseFormattedRisk());
@@ -46,12 +46,12 @@ public class InvestmentOptionDao {
 
   public InvestmentOption getInvestmentOption(int id) throws SQLException {
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENT_OPTIONS2 WHERE ID_INVESTMENT_OPTION2 = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENT_OPTIONS WHERE ID_INVESTMENT_OPTION = ?");
       stm.setInt(1, id);
 
       ResultSet result = stm.executeQuery();
       if (result.next()) {
-        int optionId = result.getInt("id_investment_option2");
+        int optionId = result.getInt("id_investment_option");
         String name = result.getString("name");
         String riskLevelStr = result.getString("risk_level");
         double rate = result.getDouble("rate");
@@ -70,11 +70,11 @@ public class InvestmentOptionDao {
   public List<InvestmentOption> getAll() throws SQLException {
     List<InvestmentOption> options = new ArrayList<>();
 
-    PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENT_OPTIONS2");
+    PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENT_OPTIONS");
     ResultSet result = stm.executeQuery();
 
     while (result.next()) {
-      int optionId = result.getInt("id_investment_option2");
+      int optionId = result.getInt("id_investment_option");
       String name = result.getString("name");
       String riskLevelStr = result.getString("risk_level");
       double rate = result.getDouble("rate");
@@ -88,7 +88,7 @@ public class InvestmentOptionDao {
 
   public void deleteInvestmentOption(int id) throws SQLException {
     try {
-      PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENT_OPTIONS2 WHERE ID_INVESTMENT_OPTION2 = ?");
+      PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENT_OPTIONS WHERE ID_INVESTMENT_OPTION = ?");
       stm.setInt(1, id);
 
       stm.executeUpdate();
@@ -103,7 +103,7 @@ public class InvestmentOptionDao {
 
     if (!options.isEmpty()) {
       try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENT_OPTIONS2");
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENT_OPTIONS");
         stm.executeUpdate();
         System.out.println("Opções de investimento deletadas com sucesso");
       } catch (SQLException e) {

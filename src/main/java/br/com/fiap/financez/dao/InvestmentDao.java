@@ -21,7 +21,7 @@ public class InvestmentDao {
 
     for (Investment investment : investments) {
       try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO INVESTMENTS2 (ID_ACCOUNT2, ID_INVESTMENT_OPTION2, AMOUNT, DESCRIPTION) VALUES (?, ?, ?, ?)", new String[]{"id_investment2"});
+        PreparedStatement stm = connection.prepareStatement("INSERT INTO INVESTMENTS (ID_ACCOUNT, ID_INVESTMENT_OPTION, AMOUNT, DESCRIPTION) VALUES (?, ?, ?, ?)", new String[]{"id_investment"});
 
         stm.setInt(1, investment.getAccount().getId());
         stm.setInt(2, investment.getInvestmentOption().getId());
@@ -51,14 +51,14 @@ public class InvestmentDao {
     InvestmentOptionDao investmentOptionDao = new InvestmentOptionDao();
 
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENTS2 WHERE ID_INVESTMENT2 = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENTS WHERE ID_INVESTMENT = ?");
       stm.setInt(1, id);
 
       ResultSet result = stm.executeQuery();
       if (result.next()) {
-        int investmentId = result.getInt("id_investment2");
-        int accountId = result.getInt("id_account2");
-        int investmentOptionId = result.getInt("id_investment_option2");
+        int investmentId = result.getInt("id_investment");
+        int accountId = result.getInt("id_account");
+        int investmentOptionId = result.getInt("id_investment_option");
         double amount = result.getDouble("amount");
         String description = result.getString("description");
         Timestamp createdAt = result.getTimestamp("created_at");
@@ -80,14 +80,14 @@ public class InvestmentDao {
     List<Investment> investments = new ArrayList<>();
 
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENTS2 WHERE ID_ACCOUNT2 = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENTS WHERE ID_ACCOUNT = ?");
       stm.setInt(1, account.getId());
       ResultSet result = stm.executeQuery();
 
       while (result.next()) {
-        int investmentId = result.getInt("id_investment2");
-        int accountId = result.getInt("id_account2");
-        int investmentOptionId = result.getInt("id_investment_option2");
+        int investmentId = result.getInt("id_investment");
+        int accountId = result.getInt("id_account");
+        int investmentOptionId = result.getInt("id_investment_option");
         double amount = result.getDouble("amount");
         String description = result.getString("description");
         Timestamp date = result.getTimestamp("created_at");
@@ -110,13 +110,13 @@ public class InvestmentDao {
     AccountDao accountDao = new AccountDao();
     InvestmentOptionDao investmentOptionDao = new InvestmentOptionDao();
 
-    PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENTS2");
+    PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENTS");
     ResultSet result = stm.executeQuery();
 
     while (result.next()) {
-      int investmentId = result.getInt("id_investment2");
-      int accountId = result.getInt("id_account2");
-      int investmentOptionId = result.getInt("id_investment_option2");
+      int investmentId = result.getInt("id_investment");
+      int accountId = result.getInt("id_account");
+      int investmentOptionId = result.getInt("id_investment_option");
       double amount = result.getDouble("amount");
       String description = result.getString("description");
       Timestamp createdAt = result.getTimestamp("created_at");
@@ -135,7 +135,7 @@ public class InvestmentDao {
 
     if (!investments.isEmpty()) {
       try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENTS2 WHERE ID_ACCOUNT2 = ?");
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENTS WHERE ID_ACCOUNT = ?");
         stm.setInt(1, account.getId());
 
         stm.executeUpdate();
@@ -150,7 +150,7 @@ public class InvestmentDao {
 
   public void deleteInvestment(int id) throws SQLException {
     try {
-      PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENTS2 WHERE ID_INVESTMENT2 = ?");
+      PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENTS WHERE ID_INVESTMENT = ?");
       stm.setInt(1, id);
 
       stm.executeUpdate();
@@ -165,7 +165,7 @@ public class InvestmentDao {
 
     if (!investments.isEmpty()) {
       try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENTS2");
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENTS");
         stm.executeUpdate();
         System.out.println("Investimentos deletados com sucesso");
       } catch (SQLException e) {

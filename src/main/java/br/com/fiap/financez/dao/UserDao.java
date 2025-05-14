@@ -20,7 +20,7 @@ public class UserDao {
 
     for (User user : users) {
       try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO USERS2 (NAME, EMAIL, PASSWORD, RG, CPF, GENDER) VALUES (?, ?, ?, ?, ?, ?)", new String[]{"ID_USER2"});
+        PreparedStatement stm = connection.prepareStatement("INSERT INTO USERS (NAME, EMAIL, PASSWORD, RG, CPF, GENDER) VALUES (?, ?, ?, ?, ?, ?)", new String[]{"ID_USER"});
 
         stm.setString(1, user.getName());
         stm.setString(2, user.getEmail());
@@ -49,12 +49,12 @@ public class UserDao {
 
   public User getUser(int id) throws SQLException {
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS2 WHERE ID_USER2 = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS WHERE ID_USER = ?");
       stm.setInt(1, id);
 
       ResultSet result = stm.executeQuery();
       if (result.next()) {
-        int userId = result.getInt("id_user2");
+        int userId = result.getInt("id_user");
         String name = result.getString("name");
         String email = result.getString("email");
         String password = result.getString("password");
@@ -77,11 +77,11 @@ public class UserDao {
   public List<User> getAll() throws SQLException {
     List<User> users = new ArrayList<>();
 
-    PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS2");
+    PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS");
     ResultSet result = stm.executeQuery();
 
     while (result.next()) {
-      int userId = result.getInt("id_user2");
+      int userId = result.getInt("id_user");
       String name = result.getString("name");
       String email = result.getString("email");
       String password = result.getString("password");
@@ -101,7 +101,7 @@ public class UserDao {
     String userName = getUser(id).getName();
 
     try {
-      PreparedStatement stm = connection.prepareStatement("DELETE FROM USERS2 WHERE ID_USER2 = ?");
+      PreparedStatement stm = connection.prepareStatement("DELETE FROM USERS WHERE ID_USER = ?");
 
       stm.setInt(1, id);
 
@@ -117,7 +117,7 @@ public class UserDao {
 
     if (!users.isEmpty()) {
       try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM USERS2");
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM USERS");
         stm.executeUpdate();
         System.out.println("Usuários deletados com sucesso");
       } catch (SQLException e) {

@@ -21,7 +21,7 @@ public class TransactionDao {
 
     for (Transaction transaction : transactions) {
       try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO TRANSACTIONS2 (ID_ACCOUNT2, AMOUNT, ACTION, DESCRIPTION) VALUES (?, ?, ?, ?)", new String[]{"ID_TRANSACTION2"});
+        PreparedStatement stm = connection.prepareStatement("INSERT INTO TRANSACTIONS (ID_ACCOUNT, AMOUNT, ACTION, DESCRIPTION) VALUES (?, ?, ?, ?)", new String[]{"ID_TRANSACTION"});
 
         stm.setInt(1, transaction.getAccount().getId());
         stm.setDouble(2, transaction.getAmount());
@@ -50,13 +50,13 @@ public class TransactionDao {
     AccountDao accountDao = new AccountDao();
 
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS2 WHERE ID_TRANSACTION2 = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS WHERE ID_TRANSACTION = ?");
       stm.setInt(1, id);
 
       ResultSet result = stm.executeQuery();
       if (result.next()) {
-        int transactionId = result.getInt("id_transaction2");
-        int accountId = result.getInt("id_account2");
+        int transactionId = result.getInt("id_transaction");
+        int accountId = result.getInt("id_account");
         double amount = result.getDouble("amount");
         String actionStr = result.getString("action");
         String description = result.getString("description");
@@ -79,13 +79,13 @@ public class TransactionDao {
     List<Transaction> transactions = new ArrayList<>();
 
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS2 WHERE ID_ACCOUNT2 = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS WHERE ID_ACCOUNT = ?");
       stm.setInt(1, account.getId());
       ResultSet result = stm.executeQuery();
 
       while (result.next()) {
-        int transactionId = result.getInt("id_transaction2");
-        int accountId = result.getInt("id_account2");
+        int transactionId = result.getInt("id_transaction");
+        int accountId = result.getInt("id_account");
         double amount = result.getDouble("amount");
         String actionStr = result.getString("action");
         String description = result.getString("description");
@@ -107,12 +107,12 @@ public class TransactionDao {
     List<Transaction> transactions = new ArrayList<>();
     AccountDao accountDao = new AccountDao();
 
-    PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS2");
+    PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS");
     ResultSet result = stm.executeQuery();
 
     while (result.next()) {
-      int transactionId = result.getInt("id_transaction2");
-      int accountId = result.getInt("id_account2");
+      int transactionId = result.getInt("id_transaction");
+      int accountId = result.getInt("id_account");
       double amount = result.getDouble("amount");
       String actionStr = result.getString("action");
       String description = result.getString("description");
@@ -132,7 +132,7 @@ public class TransactionDao {
 
     if (!transactions.isEmpty()) {
       try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS2 WHERE ID_ACCOUNT2 = ?");
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS WHERE ID_ACCOUNT = ?");
         stm.setInt(1, account.getId());
 
         stm.executeUpdate();
@@ -147,7 +147,7 @@ public class TransactionDao {
 
   public void deleteTransaction(int id) throws SQLException {
     try {
-      PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS2 WHERE ID_TRANSACTION2 = ?");
+      PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS WHERE ID_TRANSACTION = ?");
 
       stm.setInt(1, id);
 
@@ -163,7 +163,7 @@ public class TransactionDao {
 
     if (!transactions.isEmpty()) {
       try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS2");
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS");
         stm.executeUpdate();
         System.out.println("Transações deletadas com sucesso");
       } catch (SQLException e) {

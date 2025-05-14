@@ -1,6 +1,6 @@
-CREATE TABLE users2
+CREATE TABLE users
 (
-  id_user2   NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_user   NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name       VARCHAR2(100) NOT NULL,
   email      VARCHAR2(100) NOT NULL UNIQUE,
   password   VARCHAR2(100) NOT NULL,
@@ -10,45 +10,45 @@ CREATE TABLE users2
   created_at TIMESTAMP DEFAULT SYSTIMESTAMP
 );
 
-CREATE TABLE accounts2
+CREATE TABLE accounts
 (
-  id_account2    NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  id_user2       NUMBER(5)     NOT NULL,
+  id_account    NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_user       NUMBER(5)     NOT NULL,
   account_number VARCHAR2(20)  NOT NULL UNIQUE,
   agency         VARCHAR2(20)  NOT NULL,
   balance        NUMBER(10, 2) NOT NULL,
   created_at     TIMESTAMP DEFAULT SYSTIMESTAMP,
-  FOREIGN KEY (id_user2) REFERENCES users2 (id_user2)
+  FOREIGN KEY (id_user) REFERENCES users (id_user)
 );
 
-CREATE TABLE transactions2
+CREATE TABLE transactions
 (
-  id_transaction2 NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  id_account2     NUMBER(5)     NOT NULL,
+  id_transaction NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_account     NUMBER(5)     NOT NULL,
   amount          NUMBER(10, 2) NOT NULL,
   action          VARCHAR2(7)   NOT NULL CHECK (action IN ('Income', 'Expense')),
   description     VARCHAR2(100) NULL,
   created_at      TIMESTAMP DEFAULT SYSTIMESTAMP,
-  FOREIGN KEY (id_account2) REFERENCES accounts2 (id_account2)
+  FOREIGN KEY (id_account) REFERENCES accounts (id_account)
 );
 
-CREATE TABLE investment_options2
+CREATE TABLE investment_options
 (
-  id_investment_option2 NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_investment_option NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name                  VARCHAR2(50) NOT NULL UNIQUE,
   risk_level            VARCHAR2(6)  NOT NULL CHECK (risk_level IN ('Low', 'Medium', 'High')),
   rate                  NUMBER(5, 2) NOT NULL,
   created_at            TIMESTAMP DEFAULT SYSTIMESTAMP
 );
 
-CREATE TABLE investments2
+CREATE TABLE investments
 (
-  id_investment2        NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  id_account2           NUMBER(5)     NOT NULL,
-  id_investment_option2 NUMBER(5)     NOT NULL,
+  id_investment        NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_account           NUMBER(5)     NOT NULL,
+  id_investment_option NUMBER(5)     NOT NULL,
   amount                NUMBER(10, 2) NOT NULL,
   description           VARCHAR2(100) NULL,
   created_at            TIMESTAMP DEFAULT SYSTIMESTAMP,
-  FOREIGN KEY (id_account2) REFERENCES ACCOUNTS2 (id_account2),
-  FOREIGN KEY (id_investment_option2) REFERENCES investment_options2 (id_investment_option2)
+  FOREIGN KEY (id_account) REFERENCES ACCOUNTS (id_account),
+  FOREIGN KEY (id_investment_option) REFERENCES investment_options (id_investment_option)
 );

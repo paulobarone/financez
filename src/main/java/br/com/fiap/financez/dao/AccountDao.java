@@ -20,7 +20,7 @@ public class AccountDao {
 
     for (Account account : accounts) {
       try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO ACCOUNTS2 (ID_USER2, ACCOUNT_NUMBER, AGENCY, BALANCE) VALUES (?, ?, ?, ?)", new String[]{"ID_ACCOUNT2"});
+        PreparedStatement stm = connection.prepareStatement("INSERT INTO ACCOUNTS (ID_USER, ACCOUNT_NUMBER, AGENCY, BALANCE) VALUES (?, ?, ?, ?)", new String[]{"ID_ACCOUNT"});
 
         stm.setInt(1, account.getAccountHolder().getId());
         stm.setString(2, account.getNumber());
@@ -46,13 +46,13 @@ public class AccountDao {
 
   public Account getAccount(int id) throws SQLException {
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM ACCOUNTS2 WHERE ID_ACCOUNT2 = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID_ACCOUNT = ?");
       stm.setInt(1, id);
 
       ResultSet result = stm.executeQuery();
       if (result.next()) {
-        int accountId = result.getInt("id_account2");
-        int accountHolderId = result.getInt("id_user2");
+        int accountId = result.getInt("id_account");
+        int accountHolderId = result.getInt("id_user");
         String number = result.getString("account_number");
         String agency = result.getString("agency");
         double balance = result.getDouble("balance");
@@ -75,12 +75,12 @@ public class AccountDao {
     UserDao userDao = new UserDao();
 
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM ACCOUNTS2");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM ACCOUNTS");
       ResultSet result = stm.executeQuery();
 
       while (result.next()) {
-        int accountId = result.getInt("id_account2");
-        int accountHolderId = result.getInt("id_user2");
+        int accountId = result.getInt("id_account");
+        int accountHolderId = result.getInt("id_user");
         String number = result.getString("account_number");
         String agency = result.getString("agency");
         double balance = result.getDouble("balance");
@@ -98,7 +98,7 @@ public class AccountDao {
 
   public void deleteAccount(int id) throws SQLException {
     try {
-      PreparedStatement stm = connection.prepareStatement("DELETE FROM ACCOUNTS2 WHERE ID_ACCOUNT2 = ?");
+      PreparedStatement stm = connection.prepareStatement("DELETE FROM ACCOUNTS WHERE ID_ACCOUNT = ?");
 
       stm.setInt(1, id);
 
@@ -114,7 +114,7 @@ public class AccountDao {
 
     if (!accounts.isEmpty()) {
       try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM ACCOUNTS2");
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM ACCOUNTS");
         stm.executeUpdate();
         System.out.println("Contas deletadas com sucesso");
       } catch (SQLException e) {
