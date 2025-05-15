@@ -30,7 +30,7 @@
         <input type="password" class="form-control custom-input" name="password-confirm" id="password-confirm" placeholder="Confirme sua senha">
       </div>
       <div class="d-flex flex-column gap-1 align-items-center text-center">
-        <button type="button" class="primary-button">Registrar</button>
+        <a href="/financez_war_exploded/" type="button" class="primary-button">Registrar</a>
         <span class="text-white">Já é um membro? <a href="/financez_war_exploded/login.jsp" class="branding-text-color text-decoration-underline">Faça login!</a></span>
       </div>
     </form>

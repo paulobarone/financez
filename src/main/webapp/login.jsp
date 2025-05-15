@@ -26,7 +26,7 @@
         <label class="form-check-label text-white cursor-pointer" for="keep-connected">Mantenha-me conectado</label>
       </div>
       <div class="d-flex flex-column gap-1 align-items-center text-center">
-        <button type="button" class="primary-button">Login</button>
+        <a href="/financez_war_exploded/" type="button" class="primary-button">Login</a>
         <span class="text-white">Ainda não é um membro? <a href="/financez_war_exploded/register.jsp" class="branding-text-color text-decoration-underline">Registre-se!</a></span>
       </div>
     </form>
