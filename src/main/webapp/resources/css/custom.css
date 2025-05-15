@@ -49,13 +49,12 @@
 }
 
 .header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 28px;
   padding-left: 16px;
   padding-right: 56px;
+  height: 50vw;
   max-width: 600px;
+  max-height: 300px;
 }
 
 .bg-shape {
@@ -70,4 +69,50 @@
 .icon {
   width: 32px;
   height: 32px;
+}
+
+.icon-button {
+  background-color: #161616;
+  border: 1px solid #ED145B;
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 4px;
+}
+
+.vertical-separator {
+  width: 1px;
+  height: 80%;
+  background-color: #fff;
+}
+
+.main-background {
+  display: flex;
+  justify-content: center;
+  background-color: #101010;
+}
+
+.welcome-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.box-float {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #222;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.25);
+  transform: translateY(-50%);
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.hide-value-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ED145B;
 }
