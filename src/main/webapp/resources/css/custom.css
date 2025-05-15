@@ -46,3 +46,21 @@
   border: 1px solid #ED145B;
   box-shadow: none;
 }
+
+.header-content {
+  max-width: 500px;
+}
+
+.bg-shape {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  max-width: 600px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
