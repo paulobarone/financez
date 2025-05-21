@@ -51,7 +51,7 @@
           <div class="d-flex container justify-content-between gap-2 align-items-center">
             <div class="d-flex gap-2 align-items-center">
               <div class="icon-button">
-                <img class="icon" src="./resources/img/arrow-icon.svg" alt="Ícone de recebimento" />
+                <i class="fa-solid fa-arrow-up fa-xl icon"></i>
               </div>
               <div class="d-flex flex-column">
                 <h3 class="fs-6 text-white m-0 lh-sm">Recebimento confirmado</h3>
@@ -66,7 +66,7 @@
           <div class="d-flex container justify-content-between gap-2 align-items-center">
             <div class="d-flex gap-2 align-items-center">
               <div class="icon-button">
-                <img class="icon icon-inverse" src="./resources/img/arrow-icon.svg" alt="Ícone de transferência" />
+                <i class="fa-solid fa-arrow-down fa-xl icon"></i>
               </div>
               <div class="d-flex flex-column">
                 <h3 class="fs-6 text-white m-0 lh-sm">Transferência enviada</h3>
@@ -84,8 +84,18 @@
         </div>
       </div>
     </main>
-    <footer>
-      <span>Teste</span>
+    <footer class="d-flex justify-content-center gap-4 align-items-center p-4">
+      <div class="icon-button page-button">
+        <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
+      </div>
+      <div class="icon-button page-button page-selected">
+        <i class="fa-solid fa-house fa-xl icon icon-page-selected"></i>
+      </div>
+      <div class="icon-button page-button">
+        <i class="fa-solid fa-calendar-days fa-xl icon"></i>
+      </div>
     </footer>
+
+    <script src="https://kit.fontawesome.com/24d079d686.js" crossorigin="anonymous"></script>
   </body>
 </html>

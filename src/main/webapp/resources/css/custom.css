@@ -84,25 +84,33 @@ main {
   max-width: 600px;
 }
 
-.icon {
-  width: 24px;
-  height: 24px;
-}
-
-.icon-inverse {
-  transform: rotate(180deg);
-}
-
 .icon-button {
-  background-color: #161616;
+  position: relative;
+  width: 36px;
+  height: 36px;
   border: 1px solid #ED145B;
-  cursor: pointer;
-  border-radius: 100px;
-  padding: 4px;
-  height: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 50px;
+}
+
+.page-button {
+  width: 48px;
+  height: 48px;
+}
+
+.page-selected {
+  background-color: #ED145B;
+}
+
+.icon::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ED145B;
+}
+
+.icon-page-selected::before {
+  color: #000;
 }
 
 .vertical-separator {
