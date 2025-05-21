@@ -13,6 +13,7 @@
         <h1 class="m-0 text-white">Finance<span class="branding-text-color">Z</span></h1>
         <p class="text-white">Gerenciador de Finanças</p>
       </div>
+      <h1 class="text-white text-center my-4">Registre-se!</h1>
       <div class="mb-3">
         <label for="name" class="form-label cursor-pointer text-white">Nome:</label>
         <input type="text" class="form-control custom-input custom-input" name="name" id="name" placeholder="Digite seu nome">

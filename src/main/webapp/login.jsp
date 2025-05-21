@@ -13,6 +13,7 @@
         <h1 class="m-0 text-white">Finance<span class="branding-text-color">Z</span></h1>
         <p class="text-white">Gerenciador de Finanças</p>
       </div>
+      <h1 class="text-white text-center my-4">Bem-vindo de volta!</h1>
       <div class="mb-3">
         <label for="email" class="form-label cursor-pointer text-white">E-mail:</label>
         <input type="email" class="form-control custom-input" name="email" id="email" placeholder="Digite seu e-mail">
