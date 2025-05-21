@@ -58,6 +58,12 @@ main {
   cursor: pointer;
 }
 
+.buttons-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .custom-input:focus {
   color: #fff;
   background-color: transparent;
@@ -137,7 +143,7 @@ main {
   max-width: 450px;
   background-color: #222;
   box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.25);
-  transform: translateY(-50%);
+  transform: translateY(-30%);
   padding: 16px;
   border-radius: 4px;
 }
@@ -147,4 +153,18 @@ main {
   border: none;
   cursor: pointer;
   color: #ED145B;
+}
+
+@media screen and (min-width: 480px) {
+  .welcome-content {
+    gap: 16px;
+  }
+
+  .box-float {
+    transform: translateY(-50%);
+  }
+
+  .buttons-box {
+    flex-direction: row;
+  }
 }

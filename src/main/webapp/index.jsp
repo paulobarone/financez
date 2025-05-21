@@ -12,11 +12,11 @@
       <img class="bg-shape" src="./resources/img/bg-shape.svg" />
       <div class="d-flex justify-content-between align-items-center">
         <div class="welcome-content">
-          <img class="icon" src="./resources/img/perfil-icon.svg" alt="Ícone de usuário" />
+          <i class="fa-solid fa-user fa-xl"></i>
           <h1 class="text-black m-0">Olá Paulo!</h1>
         </div>
         <a href="/financez_war_exploded/login.jsp">
-          <img class="cursor-pointer icon" src="./resources/img/exit-icon.svg" alt="Ícone de sair" />
+          <i class="fa-solid fa-right-from-bracket fa-xl" style="color: #000;"></i>
         </a>
       </div>
     </header>
@@ -26,20 +26,20 @@
         <div class="d-flex gap-2">
           <span class="fs-4 text-white">R$ 1.526,35</span>
           <button class="hide-value-button">
-            <img src="./resources/img/eye-icon.svg" alt="Ícone de visibilidade" />
+            <i class="fa-solid fa-eye" style="color: #fff;"></i>
           </button>
         </div>
-        <div class="d-flex gap-2 align-items-center justify-content-center">
-          <button class="d-flex align-items-center justify-content-center gap-2 bg-transparent border-0">
+        <div class="buttons-box">
+          <button class="d-flex align-items-center gap-2 bg-transparent border-0">
             <div class="icon-button">
-              <img class="icon" src="./resources/img/expense-icon.svg" alt="Ícone de Despesa" />
+              <i class="fa-solid fa-list fa-lg icon"></i>
             </div>
             <span class="text-white text-uppercase text-start">Adicionar despesa</span>
           </button>
           <div class="vertical-separator"></div>
-          <button class="d-flex align-items-center justify-content-center gap-2 bg-transparent border-0">
+          <button class="d-flex align-items-center gap-2 bg-transparent border-0">
             <div class="icon-button">
-              <img class="icon" src="./resources/img/extract-icon.svg" alt="Ícone de Extrato" />
+              <i class="fa-solid fa-money-bill-transfer fa-lg icon"></i>
             </div>
             <span class="text-white text-uppercase text-start">Extrato de gastos</span>
           </button>
