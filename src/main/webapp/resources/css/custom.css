@@ -119,9 +119,8 @@ main {
   color: #000;
 }
 
-.vertical-separator {
+.separator {
   width: 1px;
-  height: 80%;
   background-color: #fff;
 }
 
@@ -166,5 +165,6 @@ main {
 
   .buttons-box {
     flex-direction: row;
+    gap: 16px;
   }
 }

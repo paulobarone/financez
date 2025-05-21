@@ -30,19 +30,19 @@
           </button>
         </div>
         <div class="buttons-box">
-          <button class="d-flex align-items-center gap-2 bg-transparent border-0">
+          <a href="/financez_war_exploded/" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
             <div class="icon-button">
               <i class="fa-solid fa-list fa-lg icon"></i>
             </div>
             <span class="text-white text-uppercase text-start">Adicionar despesa</span>
-          </button>
-          <div class="vertical-separator"></div>
-          <button class="d-flex align-items-center gap-2 bg-transparent border-0">
+          </a>
+          <div class="separator"></div>
+          <a href="/financez_war_exploded/" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
             <div class="icon-button">
               <i class="fa-solid fa-money-bill-transfer fa-lg icon"></i>
             </div>
             <span class="text-white text-uppercase text-start">Extrato de gastos</span>
-          </button>
+          </a>
         </div>
       </div>
       <div class="container d-flex flex-column gap-3" style="max-width: 600px">
@@ -80,20 +80,20 @@
           </div>
         </div>
         <div class="d-flex justify-content-center">
-          <a href="/financez_war_exploded/" type="button" class="primary-button see-more">Ver mais</a>
+          <button class="primary-button see-more">Ver mais</button>
         </div>
       </div>
     </main>
     <footer class="d-flex justify-content-center gap-4 align-items-center p-4">
-      <div class="icon-button page-button">
+      <a href="/financez_war_exploded/" class="icon-button page-button">
         <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
-      </div>
-      <div class="icon-button page-button page-selected">
+      </a>
+      <a href="/financez_war_exploded/" class="icon-button page-button page-selected">
         <i class="fa-solid fa-house fa-xl icon icon-page-selected"></i>
-      </div>
-      <div class="icon-button page-button">
+      </a>
+      <a href="/financez_war_exploded/" class="icon-button page-button">
         <i class="fa-solid fa-calendar-days fa-xl icon"></i>
-      </div>
+      </a>
     </footer>
 
     <script src="https://kit.fontawesome.com/24d079d686.js" crossorigin="anonymous"></script>
