@@ -115,6 +115,10 @@ main {
   color: #ED145B;
 }
 
+.simple-icon::before {
+  color: #ED145B;
+}
+
 .icon-page-selected::before {
   color: #000;
 }
@@ -147,11 +151,41 @@ main {
   border-radius: 4px;
 }
 
-.hide-value-button {
+.reset-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
   color: #ED145B;
+}
+
+.max-container {
+  max-width: 800px;
+}
+
+.footer-border {
+  border-top: 1px solid #ED145B;
+}
+
+.task-left-side {
+  min-width: 32px;
+}
+
+.custom-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.custom-item {
+  border-bottom: 1px solid #333;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.custom-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 @media screen and (min-width: 480px) {

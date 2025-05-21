@@ -1,0 +1,46 @@
+.custom-checkbox-container {
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #ED145B;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
+.custom-checkbox-container .fa-check::before {
+  color: transparent;
+  font-size: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-checkbox-container input:checked ~ .fa-check::before {
+  color: #ED145B;
+}
+
+.custom-checkbox-container:hover {
+  border-color: #ED145B;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+}
+
+.custom-checkbox-container input:focus + .fa-check::before {
+  outline: none;
+}
