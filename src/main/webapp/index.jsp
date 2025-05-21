@@ -20,8 +20,8 @@
         </a>
       </div>
     </header>
-    <main class="main-background">
-      <div class="box-float d-flex flex-column">
+    <main class="main-background d-flex flex-column align-items-center">
+      <div class="box-float">
         <h2 class="small text-secondary text-uppercase m-0">Seu saldo</h2>
         <div class="d-flex gap-2">
           <span class="fs-4 text-white">R$ 1.526,35</span>
@@ -45,6 +45,47 @@
           </button>
         </div>
       </div>
+      <div class="container d-flex flex-column gap-3" style="max-width: 600px">
+        <h2 class="text-white m-0">Transações recentes</h2>
+        <div class="d-flex flex-column gap-2">
+          <div class="d-flex container justify-content-between gap-2 align-items-center">
+            <div class="d-flex gap-2 align-items-center">
+              <div class="icon-button">
+                <img class="icon" src="./resources/img/arrow-icon.svg" alt="Ícone de recebimento" />
+              </div>
+              <div class="d-flex flex-column">
+                <h3 class="fs-6 text-white m-0 lh-sm">Recebimento confirmado</h3>
+                <p class="text-secondary m-0 fs-6 lh-sm">Você recebeu uma transferência</p>
+              </div>
+            </div>
+            <div class="d-flex col-3 flex-column align-items-end">
+              <span class="text-success">+ R$ 55,37</span>
+              <span class="text-white">11/10</span>
+            </div>
+          </div>
+          <div class="d-flex container justify-content-between gap-2 align-items-center">
+            <div class="d-flex gap-2 align-items-center">
+              <div class="icon-button">
+                <img class="icon icon-inverse" src="./resources/img/arrow-icon.svg" alt="Ícone de transferência" />
+              </div>
+              <div class="d-flex flex-column">
+                <h3 class="fs-6 text-white m-0 lh-sm">Transferência enviada</h3>
+                <p class="text-secondary m-0 fs-6 lh-sm">Você efetuou uma transferência</p>
+              </div>
+            </div>
+            <div class="d-flex col-3 flex-column align-items-end">
+              <span class="text-danger">- R$ 25,00</span>
+              <span class="text-white">04/10</span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <a href="/financez_war_exploded/" type="button" class="primary-button see-more">Ver mais</a>
+        </div>
+      </div>
     </main>
+    <footer>
+      <span>Teste</span>
+    </footer>
   </body>
 </html>
