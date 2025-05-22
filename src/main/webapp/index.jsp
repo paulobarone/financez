@@ -49,13 +49,13 @@
       <div class="container d-flex flex-column gap-3" style="max-width: 600px">
         <h2 class="text-white m-0">Transações recentes</h2>
         <div class="d-flex custom-list flex-column gap-2">
-          <div class="d-flex custom-item container justify-content-between gap-2 align-items-center">
+          <div class="d-flex custom-item justify-content-between gap-2 align-items-center">
             <div class="d-flex gap-2 align-items-center">
-              <div class="icon-button">
+              <div class="icon-button transaction-button">
                 <i class="fa-solid fa-arrow-up fa-xl icon"></i>
               </div>
               <div class="d-flex flex-column">
-                <h3 class="fs-6 text-white m-0 lh-sm">Recebimento confirmado</h3>
+                <h3 class="fs-6 text-white m-0 lh-sm">Recebimento</h3>
                 <p class="text-secondary m-0 fs-6 lh-sm">Você recebeu uma transferência</p>
               </div>
             </div>
@@ -64,13 +64,13 @@
               <span class="text-white">11/10</span>
             </div>
           </div>
-          <div class="d-flex custom-item container justify-content-between gap-2 align-items-center">
+          <div class="d-flex custom-item justify-content-between gap-2 align-items-center">
             <div class="d-flex gap-2 align-items-center">
-              <div class="icon-button">
+              <div class="icon-button transaction-button">
                 <i class="fa-solid fa-arrow-down fa-xl icon"></i>
               </div>
               <div class="d-flex flex-column">
-                <h3 class="fs-6 text-white m-0 lh-sm">Transferência enviada</h3>
+                <h3 class="fs-6 text-white m-0 lh-sm">Transferência</h3>
                 <p class="text-secondary m-0 fs-6 lh-sm">Você efetuou uma transferência</p>
               </div>
             </div>
@@ -81,7 +81,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-center">
-          <button class="primary-button see-more">Ver mais</button>
+          <a href="/financez_war_exploded/transactions.jsp" class="primary-button see-more">Ver mais</a>
         </div>
       </div>
     </main>
@@ -92,7 +92,7 @@
       <a class="icon-button page-button page-selected">
         <i class="fa-solid fa-house fa-xl icon icon-page-selected"></i>
       </a>
-      <a href="/financez_war_exploded/tasks.jsp" class="icon-button page-button">
+      <a href="/financez_war_exploded/transactions.jsp" class="icon-button page-button">
         <i class="fa-solid fa-calendar-days fa-xl icon"></i>
       </a>
     </footer>

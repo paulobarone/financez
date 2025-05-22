@@ -23,7 +23,7 @@
             <tr>
               <td>CDB</td>
               <td class="text-center">5.5%</td>
-              <td class="text-center">R$450,00</td>
+              <td class="text-center">R$ 450,00</td>
               <td class="text-end">10/06/2025</td>
             </tr>
           </table>
@@ -60,7 +60,7 @@
       <a href="/financez_war_exploded/" class="icon-button page-button">
         <i class="fa-solid fa-house fa-xl icon"></i>
       </a>
-      <a href="/financez_war_exploded/tasks.jsp" class="icon-button page-button">
+      <a href="/financez_war_exploded/transactions.jsp" class="icon-button page-button">
         <i class="fa-solid fa-calendar-days fa-xl icon"></i>
       </a>
     </footer>

@@ -98,6 +98,10 @@ main {
   border-radius: 50px;
 }
 
+.transaction-button {
+  display: none;
+}
+
 .page-button {
   width: 48px;
   height: 48px;
@@ -189,6 +193,10 @@ main {
 }
 
 @media screen and (min-width: 480px) {
+  .transaction-button {
+    display: block;
+  }
+
   .welcome-content {
     gap: 16px;
   }
