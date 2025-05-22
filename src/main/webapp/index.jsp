@@ -86,10 +86,10 @@
       </div>
     </main>
     <footer class="d-flex footer-border justify-content-center gap-4 align-items-center p-4">
-      <a class="icon-button page-button">
+      <a href="/financez_war_exploded/investments.jsp" class="icon-button page-button">
         <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
       </a>
-      <a href="/financez_war_exploded/" class="icon-button page-button page-selected">
+      <a class="icon-button page-button page-selected">
         <i class="fa-solid fa-house fa-xl icon icon-page-selected"></i>
       </a>
       <a href="/financez_war_exploded/tasks.jsp" class="icon-button page-button">
