@@ -20,7 +20,7 @@ public class UserView {
       } else {
         System.out.println("-> Lista de usuários:");
         for (User user : users) {
-          System.out.println(ANSI_PURPLE + "Usuário" + ANSI_RESET + " ID: " + user.getId() + " | Nome: " + user.getName() + " | E-mail: " + user.getEmail() + " | Senha: " + user.getPassword() + " | RG: " + user.getRg() + " | CPF: " + user.getCpf() + " | Gênero: " + user.getGender().getFormattedGender());
+          System.out.println(ANSI_PURPLE + "Usuário" + ANSI_RESET + " ID: " + user.getId() + " | Nome: " + user.getName() + " | E-mail: " + user.getEmail() + " | Senha: " + user.getPassword() + " | CPF: " + user.getCpf());
         }
       }
     } catch (SQLException e) {
@@ -34,7 +34,7 @@ public class UserView {
       User user = userDao.getUser(id);
 
       if (user != null) {
-        System.out.println(ANSI_PURPLE + "Usuário" + ANSI_RESET + " ID: " + user.getId() + " | Nome: " + user.getName() + " | E-mail: " + user.getEmail() + " | Senha: " + user.getPassword() + " | RG: " + user.getRg() + " | CPF: " + user.getCpf() + " | Gênero: " + user.getGender().getFormattedGender());
+        System.out.println(ANSI_PURPLE + "Usuário" + ANSI_RESET + " ID: " + user.getId() + " | Nome: " + user.getName() + " | E-mail: " + user.getEmail() + " | Senha: " + user.getPassword() + " | CPF: " + user.getCpf());
       } else {
         System.err.println("Usuário com ID " + id + " não encontrado");
       }

@@ -4,9 +4,7 @@ CREATE TABLE users
   name       VARCHAR2(100) NOT NULL,
   email      VARCHAR2(100) NOT NULL UNIQUE,
   password   VARCHAR2(100) NOT NULL,
-  rg         VARCHAR2(20),
-  cpf        VARCHAR2(20) UNIQUE,
-  gender     CHAR(1)       NOT NULL CHECK (gender IN ('M', 'F')),
+  cpf        VARCHAR2(20)  NOT NULL UNIQUE,
   created_at TIMESTAMP DEFAULT SYSTIMESTAMP
 );
 

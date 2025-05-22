@@ -3,7 +3,6 @@ package br.com.fiap.financez;
 import br.com.fiap.financez.dao.*;
 import br.com.fiap.financez.factory.ConnectionFactory;
 import br.com.fiap.financez.model.*;
-import br.com.fiap.financez.model.enums.Gender;
 import br.com.fiap.financez.model.enums.RiskLevel;
 import br.com.fiap.financez.model.enums.TransactionAction;
 import br.com.fiap.financez.view.*;
@@ -33,11 +32,11 @@ public class Main {
     System.out.println(" ");
 
     System.out.println(ANSI_CYAN + "- Cria e registra os dados dos usuários" + ANSI_RESET);
-    User user1 = new User("Ana Silva", "ana.silva@gmail.com", "senha123", "4567890", "123.456.789-01", Gender.FEMALE);
-    User user2 = new User("Carlos Oliveira", "carlos.oliveira@hotmail.com", "abcde", "9876543", "987.654.321-02", Gender.MALE);
-    User user3 = new User("Mariana Souza", "mariana@yahoo.com", "securepass", "2345678", "555.444.333-10", Gender.FEMALE);
-    User user4 = new User("Ricardo Alves", "ricardo.a@gmail.com", "mysecret", "7654321", "111.222.333-44", Gender.MALE);
-    User user5 = new User("Juliana Pereira", "juli.pereira@outlook.com", "qwerty", "8901234", "777.888.999-22", Gender.FEMALE);
+    User user1 = new User("Ana Silva", "ana.silva@gmail.com", "senha123", "123.456.789-01");
+    User user2 = new User("Carlos Oliveira", "carlos.oliveira@hotmail.com", "abcde", "987.654.321-02");
+    User user3 = new User("Mariana Souza", "mariana@yahoo.com", "securepass", "555.444.333-10");
+    User user4 = new User("Ricardo Alves", "ricardo.a@gmail.com", "mysecret", "111.222.333-44");
+    User user5 = new User("Juliana Pereira", "juli.pereira@outlook.com", "qwerty", "777.888.999-22");
     userDao.register(new User[]{user1, user2, user3, user4, user5});
 
     System.out.println(" ");

@@ -2,7 +2,6 @@ package br.com.fiap.financez.dao;
 
 import br.com.fiap.financez.factory.ConnectionFactory;
 import br.com.fiap.financez.model.User;
-import br.com.fiap.financez.model.enums.Gender;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,14 +19,12 @@ public class UserDao {
 
     for (User user : users) {
       try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO USERS (NAME, EMAIL, PASSWORD, RG, CPF, GENDER) VALUES (?, ?, ?, ?, ?, ?)", new String[]{"ID_USER"});
+        PreparedStatement stm = connection.prepareStatement("INSERT INTO USERS (NAME, EMAIL, PASSWORD, CPF) VALUES (?, ?, ?, ?)", new String[]{"ID_USER"});
 
         stm.setString(1, user.getName());
         stm.setString(2, user.getEmail());
         stm.setString(3, user.getPassword());
-        stm.setString(4, user.getRg());
-        stm.setString(5, user.getCpf());
-        stm.setString(6, user.getGender().getDatabaseFormattedGender());
+        stm.setString(4, user.getCpf());
 
         stm.executeUpdate();
 
@@ -58,13 +55,10 @@ public class UserDao {
         String name = result.getString("name");
         String email = result.getString("email");
         String password = result.getString("password");
-        String rg = result.getString("rg");
         String cpf = result.getString("cpf");
-        String genderStr = result.getString("gender");
         Timestamp createdAt = result.getTimestamp("created_at");
 
-        Gender gender = Gender.fromDatabaseFormattedGender(genderStr);
-        return new User(userId, name, email, password, rg, cpf, gender, createdAt);
+        return new User(userId, name, email, password, cpf, createdAt);
       } else {
         return null;
       }
@@ -85,13 +79,10 @@ public class UserDao {
       String name = result.getString("name");
       String email = result.getString("email");
       String password = result.getString("password");
-      String rg = result.getString("rg");
       String cpf = result.getString("cpf");
-      String genderStr = result.getString("gender");
       Timestamp createdAt = result.getTimestamp("created_at");
 
-      Gender gender = Gender.fromDatabaseFormattedGender(genderStr);
-      users.add(new User(userId, name, email, password, rg, cpf, gender, createdAt));
+      users.add(new User(userId, name, email, password, cpf, createdAt));
     }
 
     return users;

@@ -1,7 +1,5 @@
 package br.com.fiap.financez.model;
 
-import br.com.fiap.financez.model.enums.Gender;
-
 import java.sql.Timestamp;
 
 public class User {
@@ -9,28 +7,22 @@ public class User {
   private final String name;
   private String email;
   private String password;
-  private final String rg;
   private final String cpf;
-  private Gender gender;
   private Timestamp createdAt;
 
-  public User(String name, String email, String password, String rg, String cpf, Gender gender) {
+  public User(String name, String email, String password, String cpf) {
     this.name = name;
     this.email = email;
     this.password = password;
-    this.rg = rg;
     this.cpf = cpf;
-    this.gender = gender;
   }
 
-  public User(int id, String name, String email, String password, String rg, String cpf, Gender gender, Timestamp createdAt) {
+  public User(int id, String name, String email, String password, String cpf, Timestamp createdAt) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
-    this.rg = rg;
     this.cpf = cpf;
-    this.gender = gender;
     this.createdAt = createdAt;
   }
 
@@ -62,20 +54,8 @@ public class User {
     this.password = password;
   }
 
-  public String getRg() {
-    return rg;
-  }
-
   public String getCpf() {
     return cpf;
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  public void setGender(Gender gender) {
-    this.gender = gender;
   }
 
   public Timestamp getCreatedAt() {
