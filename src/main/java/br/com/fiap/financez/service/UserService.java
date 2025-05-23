@@ -7,6 +7,9 @@ import br.com.fiap.financez.model.User;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
+import static br.com.fiap.financez.exception.UserRegistrationException.Reason.EMAIL_INVALID;
+import static br.com.fiap.financez.exception.UserRegistrationException.Reason.EMPRY_FIELDS;
+
 public class UserService {
   private final UserDao userDao;
 
@@ -19,22 +22,15 @@ public class UserService {
         email == null || email.trim().isEmpty() ||
         password == null || password.isEmpty() ||
         cpf == null || cpf.trim().isEmpty()) {
-      throw new EmptyFieldsException("Todos os campos obrigatórios devem ser preenchidos");
+      throw new UserRegistrationException(EMPRY_FIELDS, "Todos os campos obrigatórios devem ser preenchidos");
     }
 
     if (!isValidEmail(email)) {
-      throw new InvalidEmailFormatException("O formato do e-mail é inválido");
+      throw new UserRegistrationException(EMAIL_INVALID, "O formato do e-mail é inválido");
     }
 
     User newUser = new User(name, email, password, cpf);
-
-    try {
-      userDao.register(newUser);
-    } catch (UserRegistrationException e) {
-      throw e;
-    } catch (SQLException e) {
-      throw new SQLException("Erro inesperado no banco de dados ao registrar usuário: " + e.getMessage());
-    }
+    userDao.register(newUser);
   }
 
   private boolean isValidEmail(String email) {

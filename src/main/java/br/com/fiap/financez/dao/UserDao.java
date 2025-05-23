@@ -1,5 +1,6 @@
 package br.com.fiap.financez.dao;
 
+import br.com.fiap.financez.exception.UserRegistrationException;
 import br.com.fiap.financez.factory.ConnectionFactory;
 import br.com.fiap.financez.model.User;
 
@@ -32,9 +33,14 @@ public class UserDao {
         throw new SQLException("Erro ao encontrar ID");
       }
     } catch (SQLException e) {
-      System.err.println("Não foi possível registrar o usuário " + user.getName() + ": " + e.getMessage());
-      connection.rollback();
-      throw e;
+      if (e.getErrorCode() == 1) {
+        String errorMessage = e.getMessage().toLowerCase();
+        System.out.println(errorMessage);
+
+        throw new UserRegistrationException(UserRegistrationException.Reason.FIELD_ALREADY_EXISTS, "E-mail ou CPF já cadastrado");
+      } else {
+        throw e;
+      }
     }
   }
 
