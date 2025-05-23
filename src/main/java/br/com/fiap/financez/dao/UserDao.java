@@ -14,33 +14,27 @@ public class UserDao {
     this.connection = ConnectionFactory.getConnection();
   }
 
-  public void register(User[] users) throws SQLException {
-    connection.setAutoCommit(false);
+  public void register(User user) throws SQLException {
+    try {
+      PreparedStatement stm = connection.prepareStatement("INSERT INTO USERS (NAME, EMAIL, PASSWORD, CPF) VALUES (?, ?, ?, ?)", new String[]{"ID_USER"});
 
-    for (User user : users) {
-      try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO USERS (NAME, EMAIL, PASSWORD, CPF) VALUES (?, ?, ?, ?)", new String[]{"ID_USER"});
+      stm.setString(1, user.getName());
+      stm.setString(2, user.getEmail());
+      stm.setString(3, user.getPassword());
+      stm.setString(4, user.getCpf());
 
-        stm.setString(1, user.getName());
-        stm.setString(2, user.getEmail());
-        stm.setString(3, user.getPassword());
-        stm.setString(4, user.getCpf());
+      stm.executeUpdate();
 
-        stm.executeUpdate();
-
-        ResultSet generatedKeys = stm.getGeneratedKeys();
-        if (generatedKeys.next()) {
-          user.setId(generatedKeys.getInt(1));
-        } else {
-          throw new SQLException("Erro ao encontrar ID");
-        }
-
-        System.out.println("Usuário registrado com sucesso");
-        connection.commit();
-      } catch (SQLException e) {
-        connection.rollback();
-        System.err.println("Não foi possível registrar o usuário: " + e.getMessage());
+      ResultSet generatedKeys = stm.getGeneratedKeys();
+      if (generatedKeys.next()) {
+        user.setId(generatedKeys.getInt(1));
+      } else {
+        throw new SQLException("Erro ao encontrar ID");
       }
+    } catch (SQLException e) {
+      System.err.println("Não foi possível registrar o usuário " + user.getName() + ": " + e.getMessage());
+      connection.rollback();
+      throw e;
     }
   }
 

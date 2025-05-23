@@ -30,39 +30,57 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>com.oracle.database.jdbc</groupId>
-          <artifactId>ojdbc8</artifactId>
-          <version>23.2.0.0</version>
-      </dependency>
-      <dependency>
-          <groupId>io.github.cdimascio</groupId>
-          <artifactId>java-dotenv</artifactId>
-          <version>5.2.2</version>
-      </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.jdbc</groupId>
+      <artifactId>ojdbc8</artifactId>
+      <version>23.2.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>java-dotenv</artifactId>
+      <version>5.2.2</version>
+    </dependency>
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*</include>
+          <include>.env</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/webapp</directory>
+        <includes>
+          <include>.env</include>
+        </includes>
+        <targetPath>../classes</targetPath>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
     <plugins>
-<plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.4.0</version>
       </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>14</source>
-                <target>14</target>
-            </configuration>
-        </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>14</source>
+          <target>14</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>

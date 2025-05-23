@@ -16,7 +16,7 @@
           <i class="fa-solid fa-user fa-xl"></i>
           <h1 class="text-black m-0">Olá Paulo!</h1>
         </div>
-        <a href="/financez_war_exploded/login.jsp">
+        <a href="login.jsp">
           <i class="fa-solid fa-right-from-bracket fa-xl" style="color: #000;"></i>
         </a>
       </div>
@@ -31,18 +31,18 @@
           </button>
         </div>
         <div class="buttons-box">
-          <a href="/financez_war_exploded/" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
+          <a href="investments.jsp" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
             <div class="icon-button">
-              <i class="fa-solid fa-list fa-lg icon"></i>
+              <i class="fa-solid fa-dollar-sign fa-lg icon"></i>
             </div>
-            <span class="text-white text-uppercase text-start">Adicionar despesa</span>
+            <span class="text-white text-uppercase text-start">Rendimentos</span>
           </a>
           <div class="separator"></div>
-          <a href="/financez_war_exploded/" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
+          <a href="transactions.jsp" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
             <div class="icon-button">
               <i class="fa-solid fa-money-bill-transfer fa-lg icon"></i>
             </div>
-            <span class="text-white text-uppercase text-start">Extrato de gastos</span>
+            <span class="text-white text-uppercase text-start">Transações</span>
           </a>
         </div>
       </div>
@@ -81,18 +81,18 @@
           </div>
         </div>
         <div class="d-flex justify-content-center">
-          <a href="/financez_war_exploded/transactions.jsp" class="primary-button see-more">Ver mais</a>
+          <a href="transactions.jsp" class="primary-button see-more">Ver mais</a>
         </div>
       </div>
     </main>
     <footer class="d-flex footer-border justify-content-center gap-4 align-items-center p-4">
-      <a href="/financez_war_exploded/investments.jsp" class="icon-button page-button">
+      <a href="investments.jsp" class="icon-button page-button">
         <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
       </a>
       <a class="icon-button page-button page-selected">
         <i class="fa-solid fa-house fa-xl icon icon-page-selected"></i>
       </a>
-      <a href="/financez_war_exploded/transactions.jsp" class="icon-button page-button">
+      <a href="transactions.jsp" class="icon-button page-button">
         <i class="fa-solid fa-calendar-days fa-xl icon"></i>
       </a>
     </footer>

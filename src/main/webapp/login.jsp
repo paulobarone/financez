@@ -22,13 +22,9 @@
         <label for="password" class="form-label cursor-pointer text-white">Senha:</label>
         <input type="password" class="form-control custom-input" name="password" id="password" placeholder="Digite sua senha">
       </div>
-      <div class="form-check mb-3">
-        <input type="checkbox" class="form-check-input cursor-pointer shadow-none" id="keep-connected">
-        <label class="form-check-label text-white cursor-pointer" for="keep-connected">Mantenha-me conectado</label>
-      </div>
       <div class="d-flex flex-column gap-1 align-items-center text-center">
-        <a href="/financez_war_exploded/" type="button" class="primary-button">Login</a>
-        <span class="text-white">Ainda não é um membro? <a href="/financez_war_exploded/register.jsp" class="branding-text-color text-decoration-underline">Registre-se!</a></span>
+        <a href="index.jsp" type="button" class="primary-button">Login</a>
+        <span class="text-white">Ainda não é um membro? <a href="register.jsp" class="branding-text-color text-decoration-underline">Registre-se!</a></span>
       </div>
     </form>
   </body>
