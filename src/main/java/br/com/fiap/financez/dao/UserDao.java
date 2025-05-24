@@ -118,4 +118,25 @@ public class UserDao {
       System.err.println("Não há usuários para serem deletados");
     }
   }
+
+  public User login(String email, String password) throws SQLException {
+    try {
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS WHERE EMAIL = ? AND PASSWORD = ?");
+      stm.setString(1, email);
+      stm.setString(2, password);
+
+      ResultSet result = stm.executeQuery();
+
+      if (result.next()) {
+        int userId = result.getInt("id_user");
+
+        return getUser(userId);
+      }
+    } catch (SQLException e) {
+      System.err.println("Erro ao tentar fazer login: " + e.getMessage());
+      throw new UserRegistrationException(UserRegistrationException.Reason.UNKNOWN, "Erro ao tentar fazer login");
+    }
+
+    return null;
+  }
 }

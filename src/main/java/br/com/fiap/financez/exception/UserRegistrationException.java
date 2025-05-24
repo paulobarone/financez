@@ -6,6 +6,7 @@ public class UserRegistrationException extends RuntimeException {
     EMPRY_FIELDS,
     EMAIL_INVALID,
     FIELD_ALREADY_EXISTS,
+    INVALID_CREDENTIALS,
     UNKNOWN
   }
 

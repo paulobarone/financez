@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="./resources/css/custom.css">
   </head>
   <body class="background-page">
-    <form method="post" action="users" novalidate class="container flex-column justify-content-center align-items-center gap-4 mt-5 p-4" style="max-width: 500px;">
+    <div class="container d-flex flex-column gap-2 mt-5">
       <div class="text-center">
         <h1 class="m-0 text-white">Finance<span class="branding-text-color">Z</span></h1>
         <p class="text-white">Gerenciador de Finanças</p>
       </div>
-      <h1 class="text-white text-center my-4">Registre-se!</h1>
+      <h1 class="text-white text-center">Registre-se!</h1>
+    </div>
+    <form method="post" action="register-user" novalidate class="container flex-column justify-content-center align-items-center gap-4 p-4" style="max-width: 500px;">
       <div class="d-flex flex-column gap-1">
         <div class="mb-3">
           <label for="name" class="form-label cursor-pointer text-white">Nome:</label>

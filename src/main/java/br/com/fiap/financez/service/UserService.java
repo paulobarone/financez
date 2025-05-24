@@ -33,6 +33,18 @@ public class UserService {
     userDao.register(newUser);
   }
 
+  public void loginUser(String email, String password) throws SQLException {
+    if (email == null || email.trim().isEmpty() ||
+        password == null || password.isEmpty()) {
+      throw new IllegalArgumentException("Email e senha são obrigatórios");
+    }
+
+    User user = userDao.login(email, password);
+    if (user == null) {
+      throw new UserRegistrationException(UserRegistrationException.Reason.INVALID_CREDENTIALS, "Credenciais inválidas");
+    }
+  }
+
   private boolean isValidEmail(String email) {
     return Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", email);
   }
