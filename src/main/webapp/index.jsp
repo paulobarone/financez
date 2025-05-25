@@ -41,7 +41,7 @@
             <span class="text-white text-uppercase text-start">Rendimentos</span>
           </a>
           <div class="separator"></div>
-          <a href="transactions.jsp" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
+          <a href="transactions" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
             <div class="icon-button">
               <i class="fa-solid fa-money-bill-transfer fa-lg icon"></i>
             </div>
@@ -76,7 +76,7 @@
               </div>
             </div>
             <div class="d-flex col-3 flex-column align-items-end">
-              <span class="<%= color %>"><%= signal %> R$ <%= getFormattedAmount(t.getAmount()) %></span>
+              <span class="<%= color %>"><%= signal %> <%= getFormattedAmount(t.getAmount()) %></span>
               <span class="text-white"><%= date %></span>
             </div>
           </div>
@@ -90,7 +90,7 @@
           %>
         </div>
         <div class="d-flex justify-content-center">
-          <a href="transactions.jsp" class="primary-button see-more">Ver mais</a>
+          <a href="transactions" class="primary-button see-more">Ver mais</a>
         </div>
       </div>
     </main>
@@ -101,7 +101,7 @@
       <a class="icon-button page-button page-selected">
         <i class="fa-solid fa-house fa-xl icon icon-page-selected"></i>
       </a>
-      <a href="transactions.jsp" class="icon-button page-button">
+      <a href="transactions" class="icon-button page-button">
         <i class="fa-solid fa-calendar-days fa-xl icon"></i>
       </a>
     </footer>

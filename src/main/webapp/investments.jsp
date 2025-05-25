@@ -57,10 +57,10 @@
       <a class="icon-button page-button page-selected">
         <i class="fa-solid fa-dollar-sign fa-xl icon icon-page-selected"></i>
       </a>
-      <a href="index.jsp" class="icon-button page-button">
+      <a href="home" class="icon-button page-button">
         <i class="fa-solid fa-house fa-xl icon"></i>
       </a>
-      <a href="transactions.jsp" class="icon-button page-button">
+      <a href="transactions" class="icon-button page-button">
         <i class="fa-solid fa-calendar-days fa-xl icon"></i>
       </a>
     </footer>

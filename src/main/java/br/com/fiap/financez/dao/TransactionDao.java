@@ -37,6 +37,30 @@ public class TransactionDao {
     }
   }
 
+  public void registerAll(Transaction[] transactions) throws SQLException {
+    connection.setAutoCommit(false);
+
+    for (Transaction transaction : transactions) {
+      try {
+        PreparedStatement stm = connection.prepareStatement("INSERT INTO TRANSACTIONS (ID_ACCOUNT, AMOUNT, ACTION, DESCRIPTION) VALUES (?, ?, ?, ?)", new String[]{"ID_TRANSACTION"});
+        stm.setInt(1, transaction.getAccount().getId());
+        stm.setDouble(2, transaction.getAmount());
+        stm.setString(3, transaction.getAction().getDatabaseFormattedAction());
+        stm.setString(4, transaction.getDescription());
+        stm.executeUpdate();
+
+        ResultSet generatedKeys = stm.getGeneratedKeys();
+        if (generatedKeys.next()) {
+          transaction.setId(generatedKeys.getInt(1));
+        } else {
+          throw new SQLException("Erro ao encontrar ID");
+        }
+      } catch (SQLException e) {
+        System.err.println("Não foi possível registrar a transação: " + e.getMessage());
+      }
+    }
+  }
+
   public Transaction getTransaction(int id) throws SQLException {
     AccountDao accountDao = new AccountDao();
 
@@ -67,7 +91,7 @@ public class TransactionDao {
   public List<Transaction> getTransactionsAccount(Account account) throws SQLException {
     List<Transaction> transactions = new ArrayList<>();
     try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS WHERE ID_ACCOUNT = ?");
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS WHERE ID_ACCOUNT = ? ORDER BY CREATED_AT DESC");
       stm.setInt(1, account.getId());
 
       ResultSet result = stm.executeQuery();

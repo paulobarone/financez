@@ -1,6 +1,7 @@
 package br.com.fiap.financez;
 
 import br.com.fiap.financez.dao.*;
+import br.com.fiap.financez.model.Transaction;
 
 import java.sql.SQLException;
 

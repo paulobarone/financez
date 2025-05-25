@@ -1,3 +1,7 @@
+<%@ page import="br.com.fiap.financez.model.Transaction" %>
+<%@ page import="java.util.List" %>
+<%@ page import="static br.com.fiap.financez.util.Format.getFormattedAmount" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -13,43 +17,49 @@
     <main class="container max-container d-flex flex-column gap-4 py-4">
       <h1 class="text-white m-0">Transações</h1>
       <div class="custom-list">
+        <%
+          List<Transaction> transactions = (List<Transaction>) request.getAttribute("allTransactions");
+          if (transactions != null && !transactions.isEmpty()) {
+            for (Transaction t : transactions) {
+              boolean isIncome = t.getAction().name().equalsIgnoreCase("INCOME");
+              String icon = isIncome ? "fa-arrow-up" : "fa-arrow-down";
+              String color = isIncome ? "text-success" : "text-danger";
+              String signal = isIncome ? "+" : "-";
+              String name = isIncome ? "Recebimento" : "Transferência";
+              String description = isIncome ? "Você recebeu uma transferência" : "Você efetuou uma transferência";
+              java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM");
+              String date = sdf.format(t.getCreatedAt());
+        %>
         <div class="d-flex custom-item justify-content-between gap-2 align-items-center">
           <div class="d-flex gap-2 align-items-center">
             <div class="icon-button transaction-button">
-              <i class="fa-solid fa-arrow-up fa-xl icon"></i>
+              <i class="fa-solid <%= icon %> fa-xl icon"></i>
             </div>
             <div class="d-flex flex-column">
-              <h3 class="fs-6 text-white m-0 lh-sm">Recebimento</h3>
-              <p class="text-secondary m-0 fs-6 lh-sm">Você recebeu uma transferência</p>
+              <h3 class="fs-6 text-white m-0 lh-sm"><%= name %></h3>
+              <p class="text-secondary m-0 fs-6 lh-sm"><%= description %></p>
             </div>
           </div>
           <div class="d-flex col-3 flex-column align-items-end">
-            <span class="text-success">+ R$ 55,37</span>
-            <span class="text-white">11/10</span>
+            <span class="<%= color %>"><%= signal %> <%= getFormattedAmount(t.getAmount()) %></span>
+            <span class="text-white"><%= date %></span>
           </div>
         </div>
-        <div class="d-flex custom-item justify-content-between gap-2 align-items-center">
-          <div class="d-flex gap-2 align-items-center">
-            <div class="icon-button transaction-button">
-              <i class="fa-solid fa-arrow-down fa-xl icon"></i>
-            </div>
-            <div class="d-flex flex-column">
-              <h3 class="fs-6 text-white m-0 lh-sm">Transferência</h3>
-              <p class="text-secondary m-0 fs-6 lh-sm">Você efetuou uma transferência</p>
-            </div>
-          </div>
-          <div class="d-flex col-3 flex-column align-items-end">
-            <span class="text-danger">- R$ 25,00</span>
-            <span class="text-white">04/10</span>
-          </div>
-        </div>
+        <%
+          }
+        } else {
+        %>
+        <div class="text-white">Nenhuma transação encontrada.</div>
+        <%
+          }
+        %>
       </div>
     </main>
     <footer class="d-flex footer-border justify-content-center gap-4 align-items-center p-4">
       <a href="investments.jsp" class="icon-button page-button">
         <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
       </a>
-      <a href="index.jsp" class="icon-button page-button">
+      <a href="home" class="icon-button page-button">
         <i class="fa-solid fa-house fa-xl icon"></i>
       </a>
       <a class="icon-button page-button page-selected">
