@@ -16,6 +16,7 @@ public class HomeServlet extends HttpServlet {
     User user = (User) req.getSession().getAttribute("user");
     if (user != null && user.getName() != null) {
       System.out.println(user.getName());
+
       String[] parts = user.getName().trim().split("\\s+");
       req.setAttribute("firstName", parts[0]);
     } else {
