@@ -1,6 +1,7 @@
 package br.com.fiap.financez.controller;
 
 import br.com.fiap.financez.exception.UserRegistrationException;
+import br.com.fiap.financez.model.User;
 import br.com.fiap.financez.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,8 +23,8 @@ public class LoginUserServlet extends HttpServlet {
 
       UserService userService = new UserService();
 
-      userService.loginUser(email, password);
-
+      User loggedUser = userService.loginUser(email, password);
+      req.getSession().setAttribute("user", loggedUser);
       resp.sendRedirect("index.jsp");
     } catch (UserRegistrationException e) {
       req.setAttribute("errorMessage", e.getMessage());

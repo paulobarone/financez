@@ -26,7 +26,7 @@ public class RegisterUserServlet extends HttpServlet {
 
       userService.registerUser(name, email, password, cpf);
 
-      resp.sendRedirect("index.jsp");
+      resp.sendRedirect("login.jsp");
     } catch (UserRegistrationException e) {
       req.setAttribute("errorMessage", e.getMessage());
       req.getRequestDispatcher("register.jsp").forward(req, resp);

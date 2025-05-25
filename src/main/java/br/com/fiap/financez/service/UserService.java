@@ -33,7 +33,7 @@ public class UserService {
     userDao.register(newUser);
   }
 
-  public void loginUser(String email, String password) throws SQLException {
+  public User loginUser(String email, String password) throws SQLException {
     if (email == null || email.trim().isEmpty() ||
         password == null || password.isEmpty()) {
       throw new IllegalArgumentException("Email e senha são obrigatórios");
@@ -43,6 +43,8 @@ public class UserService {
     if (user == null) {
       throw new UserRegistrationException(UserRegistrationException.Reason.INVALID_CREDENTIALS, "Credenciais inválidas");
     }
+
+    return user;
   }
 
   private boolean isValidEmail(String email) {
