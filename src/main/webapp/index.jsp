@@ -25,7 +25,7 @@
       <div class="box-float">
         <h2 class="small text-secondary text-uppercase m-0">Seu saldo</h2>
         <div class="d-flex gap-2">
-          <span class="fs-4 text-white">R$ 1.526,35</span>
+          <span class="fs-4 text-white"><%= request.getAttribute("balance") != null ? request.getAttribute("balance") : "0,00" %></span>
           <button class="reset-button">
             <i class="fa-solid fa-eye" style="color: #fff;"></i>
           </button>
