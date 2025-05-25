@@ -36,7 +36,7 @@ public class UserService {
     User newUser = new User(name, email, password, cpf);
     userDao.register(newUser);
 
-    Account newAccount = new Account(newUser, 0.00);
+    Account newAccount = new Account(newUser, 200.00);
     accountDao.register(newAccount);
   }
 

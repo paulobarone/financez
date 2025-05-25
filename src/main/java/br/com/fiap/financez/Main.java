@@ -14,14 +14,5 @@ public class Main {
     TransactionDao transactionDao = new TransactionDao();
     InvestmentOptionDao investmentOptionDao = new InvestmentOptionDao();
     InvestmentDao investmentDao = new InvestmentDao();
-
-    System.out.println(" ");
-
-    System.out.println(ANSI_CYAN + "- Deletando os dados já registrados no banco anteriormente" + ANSI_RESET);
-    transactionDao.deleteAll();
-    investmentDao.deleteAll();
-    investmentOptionDao.deleteAll();
-    accountDao.deleteAll();
-    userDao.deleteAll();
   }
 }
