@@ -14,9 +14,9 @@
       <div class="d-flex justify-content-between align-items-center">
         <div class="welcome-content">
           <i class="fa-solid fa-user fa-xl"></i>
-          <h1 class="text-black m-0">Olá Paulo!</h1>
+          <h1 class="text-black m-0">Olá <%= request.getAttribute("firstName") != null ? request.getAttribute("firstName") : "" %></h1>
         </div>
-        <a href="login.jsp">
+        <a href="logout">
           <i class="fa-solid fa-right-from-bracket fa-xl" style="color: #000;"></i>
         </a>
       </div>

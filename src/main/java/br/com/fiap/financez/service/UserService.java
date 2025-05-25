@@ -1,7 +1,9 @@
 package br.com.fiap.financez.service;
 
+import br.com.fiap.financez.dao.AccountDao;
 import br.com.fiap.financez.dao.UserDao;
 import br.com.fiap.financez.exception.*;
+import br.com.fiap.financez.model.Account;
 import br.com.fiap.financez.model.User;
 
 import java.sql.SQLException;
@@ -12,9 +14,11 @@ import static br.com.fiap.financez.exception.UserRegistrationException.Reason.EM
 
 public class UserService {
   private final UserDao userDao;
+  private final AccountDao accountDao;
 
   public UserService() throws SQLException {
     this.userDao = new UserDao();
+    this.accountDao = new AccountDao();
   }
 
   public void registerUser(String name, String email, String password, String cpf) throws SQLException {
@@ -31,6 +35,9 @@ public class UserService {
 
     User newUser = new User(name, email, password, cpf);
     userDao.register(newUser);
+
+    Account newAccount = new Account(newUser, 0.00);
+    accountDao.register(newAccount);
   }
 
   public User loginUser(String email, String password) throws SQLException {

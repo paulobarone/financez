@@ -22,7 +22,7 @@ public class AccountView {
       } else {
         System.out.println("-> Lista de contas:");
         for (Account account : accounts) {
-          System.out.println(ANSI_YELLOW + "Conta" + ANSI_RESET + " ID: " + account.getId() + " | Dono: " + account.getAccountHolder().getName() + " | Número: " + account.getNumber() + " | Agência: " + account.getAgency() + " | Saldo: " + getFormattedAmount(account.getBalance()));
+          System.out.println(ANSI_YELLOW + "Conta" + ANSI_RESET + " ID: " + account.getId() + " | Dono: " + account.getAccountHolder().getName() + " | Saldo: " + getFormattedAmount(account.getBalance()));
         }
       }
     } catch (SQLException e) {
@@ -36,7 +36,7 @@ public class AccountView {
       Account account = accountDao.getAccount(id);
 
       if (account != null) {
-        System.out.println(ANSI_YELLOW + "Conta" + ANSI_RESET + " ID: " + account.getId() + " | Dono: " + account.getAccountHolder().getName() + " | Número: " + account.getNumber() + " | Agência: " + account.getAgency() + " | Saldo: " + getFormattedAmount(account.getBalance()));
+        System.out.println(ANSI_YELLOW + "Conta" + ANSI_RESET + " ID: " + account.getId() + " | Dono: " + account.getAccountHolder().getName() + " | Saldo: " + getFormattedAmount(account.getBalance()));
       } else {
         System.err.println("Conta com ID " + id + " não encontrado");
       }

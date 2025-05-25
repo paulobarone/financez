@@ -15,32 +15,23 @@ public class AccountDao {
     this.connection = ConnectionFactory.getConnection();
   }
 
-  public void register(Account[] accounts) throws SQLException {
-    connection.setAutoCommit(false);
+  public void register(Account account) throws SQLException {
+    try {
+      PreparedStatement stm = connection.prepareStatement("INSERT INTO ACCOUNTS (ID_USER, BALANCE) VALUES (?, ?)", new String[]{"ID_ACCOUNT"});
 
-    for (Account account : accounts) {
-      try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO ACCOUNTS (ID_USER, ACCOUNT_NUMBER, AGENCY, BALANCE) VALUES (?, ?, ?, ?)", new String[]{"ID_ACCOUNT"});
+      stm.setInt(1, account.getAccountHolder().getId());
+      stm.setDouble(2, account.getBalance());
 
-        stm.setInt(1, account.getAccountHolder().getId());
-        stm.setString(2, account.getNumber());
-        stm.setString(3, account.getAgency());
-        stm.setDouble(4, account.getBalance());
+      stm.executeUpdate();
 
-        stm.executeUpdate();
-
-        ResultSet generatedKeys = stm.getGeneratedKeys();
-        if (generatedKeys.next()) {
-          account.setId(generatedKeys.getInt(1));
-        } else {
-          throw new SQLException("Erro ao encontrar ID");
-        }
-
-        System.out.println("Conta registrada com sucesso");
-        connection.commit();
-      } catch (SQLException e) {
-        System.err.println("Não foi possível registrar a conta: " + e.getMessage());
+      ResultSet generatedKeys = stm.getGeneratedKeys();
+      if (generatedKeys.next()) {
+        account.setId(generatedKeys.getInt(1));
+      } else {
+        throw new SQLException("Erro ao encontrar ID");
       }
+    } catch (SQLException e) {
+      System.err.println("Não foi possível registrar a conta: " + e.getMessage());
     }
   }
 
@@ -53,19 +44,41 @@ public class AccountDao {
       if (result.next()) {
         int accountId = result.getInt("id_account");
         int accountHolderId = result.getInt("id_user");
-        String number = result.getString("account_number");
-        String agency = result.getString("agency");
         double balance = result.getDouble("balance");
         Timestamp createdAt = result.getTimestamp("created_at");
 
         UserDao userDao = new UserDao();
         User accountHolder = userDao.getUser(accountHolderId);
-        return new Account(accountId, accountHolder, number, agency, balance, createdAt);
+        return new Account(accountId, accountHolder, balance, createdAt);
       } else {
         return null;
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível coletar os dados da conta com ID " + id + ": " + e.getMessage());
+      return null;
+    }
+  }
+
+  public Account getAccountByUserId(int userId) throws SQLException {
+    try {
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM ACCOUNTS WHERE ID_USER = ?");
+      stm.setInt(1, userId);
+
+      ResultSet result = stm.executeQuery();
+      if (result.next()) {
+        int accountId = result.getInt("id_account");
+        double balance = result.getDouble("balance");
+        Timestamp createdAt = result.getTimestamp("created_at");
+
+        UserDao userDao = new UserDao();
+        User accountHolder = userDao.getUser(userId);
+
+        return new Account(accountId, accountHolder, balance, createdAt);
+      } else {
+        return null;
+      }
+    } catch (SQLException e) {
+      System.err.println("Não foi possível coletar os dados da conta com ID do usuário " + userId + ": " + e.getMessage());
       return null;
     }
   }
@@ -81,13 +94,11 @@ public class AccountDao {
       while (result.next()) {
         int accountId = result.getInt("id_account");
         int accountHolderId = result.getInt("id_user");
-        String number = result.getString("account_number");
-        String agency = result.getString("agency");
         double balance = result.getDouble("balance");
         Timestamp createdAt = result.getTimestamp("created_at");
 
         User accountHolder = userDao.getUser(accountHolderId);
-        accounts.add(new Account(accountId, accountHolder, number, agency, balance, createdAt));
+        accounts.add(new Account(accountId, accountHolder, balance, createdAt));
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível encontrar as contas: " + e.getMessage());

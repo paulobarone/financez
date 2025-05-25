@@ -12,8 +12,6 @@ CREATE TABLE accounts
 (
   id_account    NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   id_user       NUMBER(5)     NOT NULL,
-  account_number VARCHAR2(20)  NOT NULL UNIQUE,
-  agency         VARCHAR2(20)  NOT NULL,
   balance        NUMBER(10, 2) NOT NULL,
   created_at     TIMESTAMP DEFAULT SYSTIMESTAMP,
   FOREIGN KEY (id_user) REFERENCES users (id_user)

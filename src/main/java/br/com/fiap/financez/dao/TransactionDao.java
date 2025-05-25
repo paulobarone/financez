@@ -18,56 +18,49 @@ public class TransactionDao {
 
   public void register(Transaction[] transactions) throws SQLException {
     connection.setAutoCommit(false);
-
+    String sql = "INSERT INTO TRANSACTIONS (ID_ACCOUNT, AMOUNT, ACTION, DESCRIPTION) VALUES (?, ?, ?, ?)";
     for (Transaction transaction : transactions) {
-      try {
-        PreparedStatement stm = connection.prepareStatement("INSERT INTO TRANSACTIONS (ID_ACCOUNT, AMOUNT, ACTION, DESCRIPTION) VALUES (?, ?, ?, ?)", new String[]{"ID_TRANSACTION"});
-
+      try (PreparedStatement stm = connection.prepareStatement(sql, new String[]{"ID_TRANSACTION"})) {
         stm.setInt(1, transaction.getAccount().getId());
         stm.setDouble(2, transaction.getAmount());
         stm.setString(3, transaction.getAction().getDatabaseFormattedAction());
         stm.setString(4, transaction.getDescription());
-
         stm.executeUpdate();
-
-        ResultSet generatedKeys = stm.getGeneratedKeys();
-        if (generatedKeys.next()) {
-          transaction.setId(generatedKeys.getInt(1));
-        } else {
-          throw new SQLException("Erro ao encontrar ID");
+        try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
+          if (generatedKeys.next()) {
+            transaction.setId(generatedKeys.getInt(1));
+          } else {
+            throw new SQLException("Erro ao encontrar ID");
+          }
         }
-
         System.out.println("Transação registrada com sucesso");
         connection.commit();
       } catch (SQLException e) {
         connection.rollback();
-        System.err.println("Não foi possível registrar a transação");
+        System.err.println("Não foi possível registrar a transação: " + e.getMessage());
       }
     }
   }
 
   public Transaction getTransaction(int id) throws SQLException {
     AccountDao accountDao = new AccountDao();
-
-    try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS WHERE ID_TRANSACTION = ?");
+    String sql = "SELECT * FROM TRANSACTIONS WHERE ID_TRANSACTION = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
       stm.setInt(1, id);
-
-      ResultSet result = stm.executeQuery();
-      if (result.next()) {
-        int transactionId = result.getInt("id_transaction");
-        int accountId = result.getInt("id_account");
-        double amount = result.getDouble("amount");
-        String actionStr = result.getString("action");
-        String description = result.getString("description");
-        Timestamp createdAt = result.getTimestamp("created_at");
-
-        TransactionAction action = TransactionAction.fromDatabaseFormattedAction(actionStr);
-        Account account = accountDao.getAccount(accountId);
-
-        return new Transaction(transactionId, account, amount, action, description, createdAt);
-      } else {
-        return null;
+      try (ResultSet result = stm.executeQuery()) {
+        if (result.next()) {
+          int transactionId = result.getInt("id_transaction");
+          int accountId = result.getInt("id_account");
+          double amount = result.getDouble("amount");
+          String actionStr = result.getString("action");
+          String description = result.getString("description");
+          Timestamp createdAt = result.getTimestamp("created_at");
+          TransactionAction action = TransactionAction.fromDatabaseFormattedAction(actionStr);
+          Account account = accountDao.getAccount(accountId);
+          return new Transaction(transactionId, account, amount, action, description, createdAt);
+        } else {
+          return null;
+        }
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível encontrar a transação com ID " + id + ": " + e.getMessage());
@@ -77,64 +70,82 @@ public class TransactionDao {
 
   public List<Transaction> getTransactionsAccount(Account account) throws SQLException {
     List<Transaction> transactions = new ArrayList<>();
-
-    try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS WHERE ID_ACCOUNT = ?");
+    String sql = "SELECT * FROM TRANSACTIONS WHERE ID_ACCOUNT = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
       stm.setInt(1, account.getId());
-      ResultSet result = stm.executeQuery();
-
-      while (result.next()) {
-        int transactionId = result.getInt("id_transaction");
-        int accountId = result.getInt("id_account");
-        double amount = result.getDouble("amount");
-        String actionStr = result.getString("action");
-        String description = result.getString("description");
-        Timestamp date = result.getTimestamp("created_at");
-
-        AccountDao accountDao = new AccountDao();
-        Account transactionAccount = accountDao.getAccount(accountId);
-        TransactionAction action = TransactionAction.fromDatabaseFormattedAction(actionStr);
-        transactions.add(new Transaction(transactionId, transactionAccount, amount, action, description, date));
+      try (ResultSet result = stm.executeQuery()) {
+        while (result.next()) {
+          int transactionId = result.getInt("id_transaction");
+          int accountId = result.getInt("id_account");
+          double amount = result.getDouble("amount");
+          String actionStr = result.getString("action");
+          String description = result.getString("description");
+          Timestamp date = result.getTimestamp("created_at");
+          AccountDao accountDao = new AccountDao();
+          Account transactionAccount = accountDao.getAccount(accountId);
+          TransactionAction action = TransactionAction.fromDatabaseFormattedAction(actionStr);
+          transactions.add(new Transaction(transactionId, transactionAccount, amount, action, description, date));
+        }
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível encontrar as transações de " + account.getAccountHolder().getName() + ": " + e.getMessage());
     }
+    return transactions;
+  }
 
+  public List<Transaction> getLastTransactions(Account account, int limit) throws SQLException {
+    List<Transaction> transactions = new ArrayList<>();
+    String sql = "SELECT * FROM TRANSACTIONS WHERE ID_ACCOUNT = ? ORDER BY CREATED_AT DESC LIMIT ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+      stm.setInt(1, account.getId());
+      stm.setInt(2, limit);
+      try (ResultSet result = stm.executeQuery()) {
+        while (result.next()) {
+          int transactionId = result.getInt("id_transaction");
+          int accountId = result.getInt("id_account");
+          double amount = result.getDouble("amount");
+          String actionStr = result.getString("action");
+          String description = result.getString("description");
+          Timestamp date = result.getTimestamp("created_at");
+          AccountDao accountDao = new AccountDao();
+          Account transactionAccount = accountDao.getAccount(accountId);
+          TransactionAction action = TransactionAction.fromDatabaseFormattedAction(actionStr);
+          transactions.add(new Transaction(transactionId, transactionAccount, amount, action, description, date));
+        }
+      }
+    } catch (SQLException e) {
+      System.err.println("Não foi possível encontrar as transações de " + account.getAccountHolder().getName() + ": " + e.getMessage());
+    }
     return transactions;
   }
 
   public List<Transaction> getAll() throws SQLException {
     List<Transaction> transactions = new ArrayList<>();
     AccountDao accountDao = new AccountDao();
-
-    PreparedStatement stm = connection.prepareStatement("SELECT * FROM TRANSACTIONS");
-    ResultSet result = stm.executeQuery();
-
-    while (result.next()) {
-      int transactionId = result.getInt("id_transaction");
-      int accountId = result.getInt("id_account");
-      double amount = result.getDouble("amount");
-      String actionStr = result.getString("action");
-      String description = result.getString("description");
-      Timestamp createdAt = result.getTimestamp("created_at");
-
-      TransactionAction action = TransactionAction.fromDatabaseFormattedAction(actionStr);
-      Account account = accountDao.getAccount(accountId);
-
-      transactions.add(new Transaction(transactionId, account, amount, action, description, createdAt));
+    String sql = "SELECT * FROM TRANSACTIONS";
+    try (PreparedStatement stm = connection.prepareStatement(sql);
+         ResultSet result = stm.executeQuery()) {
+      while (result.next()) {
+        int transactionId = result.getInt("id_transaction");
+        int accountId = result.getInt("id_account");
+        double amount = result.getDouble("amount");
+        String actionStr = result.getString("action");
+        String description = result.getString("description");
+        Timestamp createdAt = result.getTimestamp("created_at");
+        TransactionAction action = TransactionAction.fromDatabaseFormattedAction(actionStr);
+        Account account = accountDao.getAccount(accountId);
+        transactions.add(new Transaction(transactionId, account, amount, action, description, createdAt));
+      }
     }
-
     return transactions;
   }
 
   public void deleteTransactionsAccount(Account account) throws SQLException {
     List<Transaction> transactions = getTransactionsAccount(account);
-
     if (!transactions.isEmpty()) {
-      try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS WHERE ID_ACCOUNT = ?");
+      String sql = "DELETE FROM TRANSACTIONS WHERE ID_ACCOUNT = ?";
+      try (PreparedStatement stm = connection.prepareStatement(sql)) {
         stm.setInt(1, account.getId());
-
         stm.executeUpdate();
         System.out.println("Transações de " + account.getAccountHolder().getName() + " deletadas com sucesso");
       } catch (SQLException e) {
@@ -146,11 +157,9 @@ public class TransactionDao {
   }
 
   public void deleteTransaction(int id) throws SQLException {
-    try {
-      PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS WHERE ID_TRANSACTION = ?");
-
+    String sql = "DELETE FROM TRANSACTIONS WHERE ID_TRANSACTION = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
       stm.setInt(1, id);
-
       stm.executeUpdate();
       System.out.println("Transação deletada com sucesso");
     } catch (SQLException e) {
@@ -160,10 +169,9 @@ public class TransactionDao {
 
   public void deleteAll() throws SQLException {
     List<Transaction> transactions = getAll();
-
     if (!transactions.isEmpty()) {
-      try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM TRANSACTIONS");
+      String sql = "DELETE FROM TRANSACTIONS";
+      try (PreparedStatement stm = connection.prepareStatement(sql)) {
         stm.executeUpdate();
         System.out.println("Transações deletadas com sucesso");
       } catch (SQLException e) {
