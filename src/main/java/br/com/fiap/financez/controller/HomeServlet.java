@@ -30,12 +30,8 @@ public class HomeServlet extends HttpServlet {
         Account account = accountDao.getAccountByUserId(user.getId());
         List<Transaction> recentTransactions = transactionDao.getLastTransactions(account, 6);
 
-        if (account != null) {
-          req.setAttribute("balance", getFormattedAmount(account.getBalance()));
-          req.setAttribute("transactions", recentTransactions);
-        } else {
-          req.setAttribute("errorMessage", "Conta não encontrada");
-        }
+        req.setAttribute("balance", getFormattedAmount(account.getBalance()));
+        req.setAttribute("transactions", recentTransactions);
       } catch (SQLException e) {
         req.setAttribute("errorMessage", e.getMessage());
         req.getRequestDispatcher("login.jsp").forward(req, resp);

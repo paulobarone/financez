@@ -30,11 +30,7 @@ public class TransactionsServlet extends HttpServlet {
         Account account = accountDao.getAccountByUserId(user.getId());
         transactions = transactionDao.getTransactionsAccount(account);
 
-        if (account != null) {
-          req.setAttribute("transactions", transactions);
-        } else {
-          req.setAttribute("errorMessage", "Conta não encontrada");
-        }
+        req.setAttribute("transactions", transactions);
       } catch (SQLException e) {
         req.setAttribute("errorMessage", e.getMessage());
         req.getRequestDispatcher("login.jsp").forward(req, resp);
