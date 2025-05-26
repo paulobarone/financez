@@ -22,7 +22,6 @@ public class ConnectionFactory {
       try {
         Class.forName("oracle.jdbc.driver.OracleDriver");
         currentConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
-        System.out.println(ANSI_GREEN + "---------- Nova conexão estabelecida ----------" + ANSI_RESET);
       } catch (ClassNotFoundException e) {
         System.err.println(ANSI_RED + "Erro ao carregar o driver JDBC: " + e.getMessage() + ANSI_RESET);
       }
@@ -35,9 +34,6 @@ public class ConnectionFactory {
     if (currentConnection != null && !currentConnection.isClosed()) {
       currentConnection.close();
       currentConnection = null;
-      System.out.println(ANSI_RED + "---------- Conexão encerrada ----------" + ANSI_RESET);
-    } else {
-      System.out.println(ANSI_RED + "---------- Nenhuma conexão ativa para encerrar ----------" + ANSI_RESET);
     }
   }
 }

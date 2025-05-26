@@ -110,11 +110,8 @@ public class AccountDao {
   public void deleteAccount(int id) throws SQLException {
     try {
       PreparedStatement stm = connection.prepareStatement("DELETE FROM ACCOUNTS WHERE ID_ACCOUNT = ?");
-
       stm.setInt(1, id);
-
       stm.executeUpdate();
-      System.out.println("Conta deletada com sucesso");
     } catch (SQLException e) {
       System.err.println("Não foi possível deletar a conta com ID " + id + ": " + e.getMessage());
     }
@@ -127,7 +124,6 @@ public class AccountDao {
       try {
         PreparedStatement stm = connection.prepareStatement("DELETE FROM ACCOUNTS");
         stm.executeUpdate();
-        System.out.println("Contas deletadas com sucesso");
       } catch (SQLException e) {
         System.err.println("Não foi possível deletar as contas: " + e.getMessage());
       }

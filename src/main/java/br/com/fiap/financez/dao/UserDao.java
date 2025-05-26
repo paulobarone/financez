@@ -16,8 +16,8 @@ public class UserDao {
   }
 
   public void register(User user) throws SQLException {
-    String sql = "INSERT INTO USERS (NAME, EMAIL, PASSWORD, CPF) VALUES (?, ?, ?, ?)";
-    try (PreparedStatement stm = connection.prepareStatement(sql, new String[]{"ID_USER"})) {
+    try {
+      PreparedStatement stm = connection.prepareStatement("INSERT INTO USERS (NAME, EMAIL, PASSWORD, CPF) VALUES (?, ?, ?, ?)", new String[]{"ID_USER"});
       stm.setString(1, user.getName());
       stm.setString(2, user.getEmail());
       stm.setString(3, user.getPassword());
@@ -25,17 +25,16 @@ public class UserDao {
 
       stm.executeUpdate();
 
-      try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
-        if (generatedKeys.next()) {
-          user.setId(generatedKeys.getInt(1));
-        } else {
-          throw new SQLException("Erro ao encontrar ID");
-        }
+      ResultSet generatedKeys = stm.getGeneratedKeys();
+      if (generatedKeys.next()) {
+        user.setId(generatedKeys.getInt(1));
+      } else {
+        throw new SQLException("Erro ao encontrar ID");
       }
     } catch (SQLException e) {
       if (e.getErrorCode() == 1) {
         String errorMessage = e.getMessage().toLowerCase();
-        System.out.println(errorMessage);
+        System.err.println(errorMessage);
         throw new UserRegistrationException(UserRegistrationException.Reason.FIELD_ALREADY_EXISTS, "E-mail ou CPF já cadastrado");
       } else {
         throw e;
@@ -44,21 +43,20 @@ public class UserDao {
   }
 
   public User getUser(int id) throws SQLException {
-    String sql = "SELECT * FROM USERS WHERE ID_USER = ?";
-    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+    try {
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS WHERE ID_USER = ?");
       stm.setInt(1, id);
-      try (ResultSet result = stm.executeQuery()) {
-        if (result.next()) {
-          int userId = result.getInt("id_user");
-          String name = result.getString("name");
-          String email = result.getString("email");
-          String password = result.getString("password");
-          String cpf = result.getString("cpf");
-          Timestamp createdAt = result.getTimestamp("created_at");
-          return new User(userId, name, email, password, cpf, createdAt);
-        } else {
-          return null;
-        }
+      ResultSet result = stm.executeQuery();
+      if (result.next()) {
+        int userId = result.getInt("id_user");
+        String name = result.getString("name");
+        String email = result.getString("email");
+        String password = result.getString("password");
+        String cpf = result.getString("cpf");
+        Timestamp createdAt = result.getTimestamp("created_at");
+        return new User(userId, name, email, password, cpf, createdAt);
+      } else {
+        return null;
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível coletar os dados do usuário com ID " + id + ": " + e.getMessage());
@@ -68,9 +66,9 @@ public class UserDao {
 
   public List<User> getAll() throws SQLException {
     List<User> users = new ArrayList<>();
-    String sql = "SELECT * FROM USERS";
-    try (PreparedStatement stm = connection.prepareStatement(sql);
-         ResultSet result = stm.executeQuery()) {
+    try {
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS");
+      ResultSet result = stm.executeQuery();
       while (result.next()) {
         int userId = result.getInt("id_user");
         String name = result.getString("name");
@@ -80,17 +78,18 @@ public class UserDao {
         Timestamp createdAt = result.getTimestamp("created_at");
         users.add(new User(userId, name, email, password, cpf, createdAt));
       }
+    } catch (SQLException e) {
+      System.err.println("Não foi possível coletar os dados dos usuários: " + e.getMessage());
+      return null;
     }
     return users;
   }
 
   public void deleteUser(int id) throws SQLException {
-    String userName = getUser(id) != null ? getUser(id).getName() : "";
-    String sql = "DELETE FROM USERS WHERE ID_USER = ?";
-    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+    try {
+      PreparedStatement stm = connection.prepareStatement("DELETE FROM USERS WHERE ID_USER = ?");
       stm.setInt(1, id);
       stm.executeUpdate();
-      System.out.println("Usuário deletado com sucesso");
     } catch (SQLException e) {
       System.err.println("Não foi possível deletar o usuário com ID " + id + ": " + e.getMessage());
     }
@@ -99,10 +98,9 @@ public class UserDao {
   public void deleteAll() throws SQLException {
     List<User> users = getAll();
     if (!users.isEmpty()) {
-      String sql = "DELETE FROM USERS";
-      try (PreparedStatement stm = connection.prepareStatement(sql)) {
+      try {
+        PreparedStatement stm = connection.prepareStatement("DELETE FROM USERS");
         stm.executeUpdate();
-        System.out.println("Usuários deletados com sucesso");
       } catch (SQLException e) {
         System.err.println("Não foi possível deletar os usuários: " + e.getMessage());
       }
@@ -112,15 +110,14 @@ public class UserDao {
   }
 
   public User login(String email, String password) throws SQLException {
-    String sql = "SELECT * FROM USERS WHERE EMAIL = ? AND PASSWORD = ?";
-    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+    try {
+      PreparedStatement stm = connection.prepareStatement("SELECT * FROM USERS WHERE EMAIL = ? AND PASSWORD = ?");
       stm.setString(1, email);
       stm.setString(2, password);
-      try (ResultSet result = stm.executeQuery()) {
-        if (result.next()) {
-          int userId = result.getInt("id_user");
-          return getUser(userId);
-        }
+      ResultSet result = stm.executeQuery();
+      if (result.next()) {
+        int userId = result.getInt("id_user");
+        return getUser(userId);
       }
     } catch (SQLException e) {
       System.err.println("Erro ao tentar fazer login: " + e.getMessage());
