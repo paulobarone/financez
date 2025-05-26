@@ -15,7 +15,7 @@
       </div>
       <h1 class="text-white text-center">Bem-vindo de volta!</h1>
     </div>
-    <form method="post" action="login-user" class="container flex-column justify-content-center align-items-center gap-4 p-4" style="max-width: 500px;">
+    <form method="post" action="login-user" novalidate class="container flex-column justify-content-center align-items-center gap-4 p-4" style="max-width: 500px;">
       <div class="d-flex flex-column gap-1">
         <div class="mb-3">
           <label for="email" class="form-label cursor-pointer text-white">E-mail:</label>

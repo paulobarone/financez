@@ -16,17 +16,18 @@ public class InvestmentOptionDao {
   }
 
   public void register(InvestmentOption investmentOption) throws SQLException {
-    try {
-      PreparedStatement stm = connection.prepareStatement("INSERT INTO INVESTMENT_OPTIONS (NAME, RISK_LEVEL, RATE) VALUES (?, ?, ?)", new String[]{"ID_INVESTMENT_OPTION"});
+    String sql = "INSERT INTO INVESTMENT_OPTIONS (NAME, RISK_LEVEL, RATE) VALUES (?, ?, ?)";
+    try (PreparedStatement stm = connection.prepareStatement(sql, new String[]{"ID_INVESTMENT_OPTION"})) {
       stm.setString(1, investmentOption.getName());
       stm.setString(2, investmentOption.getRiskLevel().getDatabaseFormattedRisk());
       stm.setDouble(3, investmentOption.getRate());
       stm.executeUpdate();
-      ResultSet generatedKeys = stm.getGeneratedKeys();
-      if (generatedKeys.next()) {
-        investmentOption.setId(generatedKeys.getInt(1));
-      } else {
-        throw new SQLException("Erro ao encontrar ID");
+      try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          investmentOption.setId(generatedKeys.getInt(1));
+        } else {
+          throw new SQLException("Erro ao encontrar ID");
+        }
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível registrar a opção de investimento: " + e.getMessage());
@@ -34,37 +35,36 @@ public class InvestmentOptionDao {
   }
 
   public void register(InvestmentOption[] investmentOptions) throws SQLException {
-    for(InvestmentOption investmentOption : investmentOptions) {
+    for (InvestmentOption investmentOption : investmentOptions) {
       register(investmentOption);
     }
   }
 
   public InvestmentOption getInvestmentOption(int id) throws SQLException {
-    try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENT_OPTIONS WHERE ID_INVESTMENT_OPTION = ?");
+    String sql = "SELECT * FROM INVESTMENT_OPTIONS WHERE ID_INVESTMENT_OPTION = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
       stm.setInt(1, id);
-      ResultSet result = stm.executeQuery();
-      if (result.next()) {
-        int optionId = result.getInt("id_investment_option");
-        String name = result.getString("name");
-        String riskLevelStr = result.getString("risk_level");
-        double rate = result.getDouble("rate");
-        RiskLevel riskLevel = RiskLevel.fromDatabaseFormattedRisk(riskLevelStr);
-        return new InvestmentOption(optionId, name, riskLevel, rate);
-      } else {
-        return null;
+      try (ResultSet result = stm.executeQuery()) {
+        if (result.next()) {
+          int optionId = result.getInt("id_investment_option");
+          String name = result.getString("name");
+          String riskLevelStr = result.getString("risk_level");
+          double rate = result.getDouble("rate");
+          RiskLevel riskLevel = RiskLevel.fromDatabaseFormattedRisk(riskLevelStr);
+          return new InvestmentOption(optionId, name, riskLevel, rate);
+        }
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível encontrar a opção de investimento com ID " + id + ": " + e.getMessage());
-      return null;
     }
+    return null;
   }
 
   public List<InvestmentOption> getAll() throws SQLException {
     List<InvestmentOption> options = new ArrayList<>();
-    try {
-      PreparedStatement stm = connection.prepareStatement("SELECT * FROM INVESTMENT_OPTIONS");
-      ResultSet result = stm.executeQuery();
+    String sql = "SELECT * FROM INVESTMENT_OPTIONS";
+    try (PreparedStatement stm = connection.prepareStatement(sql);
+         ResultSet result = stm.executeQuery()) {
       while (result.next()) {
         int optionId = result.getInt("id_investment_option");
         String name = result.getString("name");
@@ -81,8 +81,8 @@ public class InvestmentOptionDao {
   }
 
   public void deleteInvestmentOption(int id) throws SQLException {
-    try {
-      PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENT_OPTIONS WHERE ID_INVESTMENT_OPTION = ?");
+    String sql = "DELETE FROM INVESTMENT_OPTIONS WHERE ID_INVESTMENT_OPTION = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
       stm.setInt(1, id);
       stm.executeUpdate();
     } catch (SQLException e) {
@@ -92,9 +92,9 @@ public class InvestmentOptionDao {
 
   public void deleteAll() throws SQLException {
     List<InvestmentOption> options = getAll();
-    if (!options.isEmpty()) {
-      try {
-        PreparedStatement stm = connection.prepareStatement("DELETE FROM INVESTMENT_OPTIONS");
+    if (options != null && !options.isEmpty()) {
+      String sql = "DELETE FROM INVESTMENT_OPTIONS";
+      try (PreparedStatement stm = connection.prepareStatement(sql)) {
         stm.executeUpdate();
       } catch (SQLException e) {
         System.err.println("Não foi possível deletar as opções de investimento: " + e.getMessage());

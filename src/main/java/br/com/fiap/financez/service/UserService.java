@@ -55,7 +55,7 @@ public class UserService {
     Transaction t9 = new Transaction(newAccount, 1000.00, TransactionAction.INCOME, "Bônus de desempenho");
     Transaction t10 = new Transaction(newAccount, 60.00, TransactionAction.EXPENSE, "Compra de livros");
 
-    transactionDao.registerAll(new Transaction[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10});
+    transactionDao.register(new Transaction[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10});
   }
 
   public User loginUser(String email, String password) throws SQLException {
