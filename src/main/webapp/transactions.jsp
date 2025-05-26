@@ -56,7 +56,7 @@
       </div>
     </main>
     <footer class="d-flex footer-border justify-content-center gap-4 align-items-center p-4">
-      <a href="investments.jsp" class="icon-button page-button">
+      <a href="investments" class="icon-button page-button">
         <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
       </a>
       <a href="home" class="icon-button page-button">

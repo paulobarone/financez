@@ -1,3 +1,8 @@
+<%@ page import="br.com.fiap.financez.model.Investment" %>
+<%@ page import="java.util.List" %>
+<%@ page import="br.com.fiap.financez.model.InvestmentOption" %>
+<%@ page import="static br.com.fiap.financez.util.Format.getFormattedRate" %>
+<%@ page import="static br.com.fiap.financez.util.Format.getFormattedAmount" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -39,16 +44,29 @@
               <th class="text-center">Taxa</th>
               <th></th>
             </tr>
+            <%
+              List<InvestmentOption> investments = (List<InvestmentOption>) request.getAttribute("investmentOptions");
+              if (investments != null && !investments.isEmpty()) {
+                for (InvestmentOption inv : investments) {
+            %>
             <tr>
-              <td>CDB</td>
-              <td class="text-center">Baixo</td>
-              <td class="text-center">5.5%</td>
+              <td><%= inv.getName() %></td>
+              <td class="text-center"><%= inv.getRiskLevel().getFormattedRisk() %></td>
+              <td class="text-center"><%= getFormattedRate(inv.getRate()) %></td>
               <td class="text-end">
                 <button class="reset-button">
                   <i class="fa-solid fa-sack-dollar simple-icon fa-xl"></i>
                 </button>
               </td>
             </tr>
+            <%
+              }
+            } else {
+            %>
+            <tr>
+              <td colspan="4" class="text-center">Nenhum investimento encontrado.</td>
+            </tr>
+            <% } %>
           </table>
         </div>
       </div>

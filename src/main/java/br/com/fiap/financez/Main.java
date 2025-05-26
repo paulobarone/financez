@@ -2,7 +2,6 @@ package br.com.fiap.financez;
 
 import br.com.fiap.financez.dao.*;
 import br.com.fiap.financez.model.InvestmentOption;
-import br.com.fiap.financez.model.Transaction;
 import br.com.fiap.financez.model.enums.RiskLevel;
 
 import java.sql.SQLException;

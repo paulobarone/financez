@@ -34,7 +34,7 @@
           </button>
         </div>
         <div class="buttons-box">
-          <a href="investments.jsp" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
+          <a href="investments" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
             <div class="icon-button">
               <i class="fa-solid fa-dollar-sign fa-lg icon"></i>
             </div>
@@ -95,7 +95,7 @@
       </div>
     </main>
     <footer class="d-flex footer-border justify-content-center gap-4 align-items-center p-4">
-      <a href="investments.jsp" class="icon-button page-button">
+      <a href="investments" class="icon-button page-button">
         <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
       </a>
       <a class="icon-button page-button page-selected">
