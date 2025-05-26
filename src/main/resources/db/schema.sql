@@ -27,14 +27,3 @@ CREATE TABLE investment_options
   rate                 NUMBER(5, 2) NOT NULL,
   created_at           TIMESTAMP DEFAULT SYSTIMESTAMP
 );
-
-CREATE TABLE investments
-(
-  id_investment        NUMBER(5) GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  id_user              NUMBER(5)     NOT NULL,
-  id_investment_option NUMBER(5)     NOT NULL,
-  amount               NUMBER(10, 2) NOT NULL,
-  created_at           TIMESTAMP DEFAULT SYSTIMESTAMP,
-  FOREIGN KEY (id_user) REFERENCES users (id_user),
-  FOREIGN KEY (id_investment_option) REFERENCES investment_options (id_investment_option)
-);
