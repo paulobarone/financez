@@ -3,7 +3,6 @@ package br.com.fiap.financez.dao;
 import br.com.fiap.financez.factory.ConnectionFactory;
 import br.com.fiap.financez.model.Account;
 import br.com.fiap.financez.model.Investment;
-import br.com.fiap.financez.model.InvestmentOption;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,12 +16,11 @@ public class InvestmentDao {
   }
 
   public void register(Investment investment) throws SQLException {
-    String sql = "INSERT INTO INVESTMENTS (ID_ACCOUNT, ID_INVESTMENT_OPTION, AMOUNT, DESCRIPTION) VALUES (?, ?, ?, ?)";
+    String sql = "INSERT INTO INVESTMENTS (ID_ACCOUNT, ID_INVESTMENT_OPTION, AMOUNT) VALUES (?, ?, ?)";
     try (PreparedStatement stm = connection.prepareStatement(sql, new String[]{"ID_INVESTMENT"})) {
-      stm.setInt(1, investment.getAccount().getId());
-      stm.setInt(2, investment.getInvestmentOption().getId());
+      stm.setInt(1, investment.getAccountId());
+      stm.setInt(2, investment.getInvestmentOptionId());
       stm.setDouble(3, investment.getAmount());
-      stm.setString(4, investment.getDescription());
       stm.executeUpdate();
       try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
         if (generatedKeys.next()) {
@@ -37,8 +35,6 @@ public class InvestmentDao {
   }
 
   public Investment getInvestment(int id) throws SQLException {
-    AccountDao accountDao = new AccountDao();
-    InvestmentOptionDao investmentOptionDao = new InvestmentOptionDao();
     String sql = "SELECT * FROM INVESTMENTS WHERE ID_INVESTMENT = ?";
     try (PreparedStatement stm = connection.prepareStatement(sql)) {
       stm.setInt(1, id);
@@ -48,11 +44,9 @@ public class InvestmentDao {
           int accountId = result.getInt("id_account");
           int investmentOptionId = result.getInt("id_investment_option");
           double amount = result.getDouble("amount");
-          String description = result.getString("description");
           Timestamp createdAt = result.getTimestamp("created_at");
-          Account account = accountDao.getAccount(accountId);
-          InvestmentOption investmentOption = investmentOptionDao.getInvestmentOption(investmentOptionId);
-          return new Investment(investmentId, account, investmentOption, amount, description, createdAt);
+
+          return new Investment(investmentId, accountId, investmentOptionId, amount, createdAt);
         }
       }
     } catch (SQLException e) {
@@ -72,13 +66,9 @@ public class InvestmentDao {
           int accountId = result.getInt("id_account");
           int investmentOptionId = result.getInt("id_investment_option");
           double amount = result.getDouble("amount");
-          String description = result.getString("description");
           Timestamp date = result.getTimestamp("created_at");
-          AccountDao accountDao = new AccountDao();
-          InvestmentOptionDao investmentOptionDao = new InvestmentOptionDao();
-          Account investmentAccount = accountDao.getAccount(accountId);
-          InvestmentOption investmentOption = investmentOptionDao.getInvestmentOption(investmentOptionId);
-          investments.add(new Investment(investmentId, investmentAccount, investmentOption, amount, description, date));
+
+          investments.add(new Investment(investmentId, accountId, investmentOptionId, amount, date));
         }
       }
     } catch (SQLException e) {
@@ -89,8 +79,6 @@ public class InvestmentDao {
 
   public List<Investment> getAll() throws SQLException {
     List<Investment> investments = new ArrayList<>();
-    AccountDao accountDao = new AccountDao();
-    InvestmentOptionDao investmentOptionDao = new InvestmentOptionDao();
     String sql = "SELECT * FROM INVESTMENTS";
     try (PreparedStatement stm = connection.prepareStatement(sql);
          ResultSet result = stm.executeQuery()) {
@@ -99,11 +87,9 @@ public class InvestmentDao {
         int accountId = result.getInt("id_account");
         int investmentOptionId = result.getInt("id_investment_option");
         double amount = result.getDouble("amount");
-        String description = result.getString("description");
         Timestamp createdAt = result.getTimestamp("created_at");
-        Account account = accountDao.getAccount(accountId);
-        InvestmentOption investmentOption = investmentOptionDao.getInvestmentOption(investmentOptionId);
-        investments.add(new Investment(investmentId, account, investmentOption, amount, description, createdAt));
+
+        investments.add(new Investment(investmentId, accountId, investmentOptionId, amount, createdAt));
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível encontrar os investimentos: " + e.getMessage());

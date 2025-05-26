@@ -45,6 +45,7 @@ public class AccountDao {
           Timestamp createdAt = result.getTimestamp("created_at");
           UserDao userDao = new UserDao();
           User accountHolder = userDao.getUser(accountHolderId);
+
           return new Account(accountId, accountHolder, balance, createdAt);
         }
       }

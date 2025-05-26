@@ -43,7 +43,6 @@ CREATE TABLE investments
   id_account           NUMBER(5)     NOT NULL,
   id_investment_option NUMBER(5)     NOT NULL,
   amount                NUMBER(10, 2) NOT NULL,
-  description           VARCHAR2(100) NULL,
   created_at            TIMESTAMP DEFAULT SYSTIMESTAMP,
   FOREIGN KEY (id_account) REFERENCES ACCOUNTS (id_account),
   FOREIGN KEY (id_investment_option) REFERENCES investment_options (id_investment_option)

@@ -4,31 +4,22 @@ import java.sql.Timestamp;
 
 public class Investment {
   private int id;
-  private Account account;
-  private InvestmentOption investmentOption;
+  private int accountId;
+  private int investmentOptionId;
   private double amount;
-  private String description;
   private Timestamp createdAt;
 
-  public Investment(Account account, InvestmentOption investmentOption, double amount) {
-    this.account = account;
-    this.investmentOption = investmentOption;
+  public Investment(int accountId, int investmentOptionId, double amount) {
+    this.accountId = accountId;
+    this.investmentOptionId = investmentOptionId;
     this.amount = amount;
   }
 
-  public Investment(Account account, InvestmentOption investmentOption, double amount, String description) {
-    this.account = account;
-    this.investmentOption = investmentOption;
-    this.amount = amount;
-    this.description = description;
-  }
-
-  public Investment(int id, Account account, InvestmentOption investmentOption, double amount, String description, Timestamp createdAt) {
+  public Investment(int id, int accountId, int investmentOptionId, double amount, Timestamp createdAt) {
     this.id = id;
-    this.account = account;
-    this.investmentOption = investmentOption;
+    this.accountId = accountId;
+    this.investmentOptionId = investmentOptionId;
     this.amount = amount;
-    this.description = description;
     this.createdAt = createdAt;
   }
 
@@ -40,20 +31,20 @@ public class Investment {
     this.id = id;
   }
 
-  public Account getAccount() {
-    return account;
+  public int getAccountId() {
+    return accountId;
   }
 
-  public void setAccount(Account account) {
-    this.account = account;
+  public void setAccountId(int accountId) {
+    this.accountId = accountId;
   }
 
-  public InvestmentOption getInvestmentOption() {
-    return investmentOption;
+  public int getInvestmentOptionId() {
+    return investmentOptionId;
   }
 
-  public void setInvestmentOption(InvestmentOption investmentOption) {
-    this.investmentOption = investmentOption;
+  public void setInvestmentOptionId(int investmentOptionId) {
+    this.investmentOptionId = investmentOptionId;
   }
 
   public double getAmount() {
@@ -62,14 +53,6 @@ public class Investment {
 
   public void setAmount(double amount) {
     this.amount = amount;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public Timestamp getCreatedAt() {

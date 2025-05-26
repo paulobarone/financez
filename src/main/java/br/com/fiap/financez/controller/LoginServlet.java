@@ -26,13 +26,7 @@ public class LoginServlet extends HttpServlet {
       User loggedUser = userService.loginUser(email, password);
       req.getSession().setAttribute("user", loggedUser);
       resp.sendRedirect("home");
-    } catch (UserRegistrationException e) {
-      req.setAttribute("errorMessage", e.getMessage());
-      req.getRequestDispatcher("login.jsp").forward(req, resp);
-    } catch (IllegalArgumentException e) {
-      req.setAttribute("errorMessage", e.getMessage());
-      req.getRequestDispatcher("login.jsp").forward(req, resp);
-    } catch (SQLException e) {
+    } catch (UserRegistrationException | IllegalArgumentException | SQLException e) {
       req.setAttribute("errorMessage", e.getMessage());
       req.getRequestDispatcher("login.jsp").forward(req, resp);
     }

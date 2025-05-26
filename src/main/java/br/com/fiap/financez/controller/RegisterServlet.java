@@ -27,13 +27,7 @@ public class RegisterServlet extends HttpServlet {
       userService.registerUser(name, email, password, cpf);
 
       resp.sendRedirect("login.jsp");
-    } catch (UserRegistrationException e) {
-      req.setAttribute("errorMessage", e.getMessage());
-      req.getRequestDispatcher("register.jsp").forward(req, resp);
-    } catch (IllegalArgumentException e) {
-      req.setAttribute("errorMessage", e.getMessage());
-      req.getRequestDispatcher("register.jsp").forward(req, resp);
-    } catch (SQLException e) {
+    } catch (UserRegistrationException | IllegalArgumentException | SQLException e) {
       req.setAttribute("errorMessage", e.getMessage());
       req.getRequestDispatcher("register.jsp").forward(req, resp);
     }

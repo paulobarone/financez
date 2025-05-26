@@ -33,7 +33,7 @@
           <label for="cpf" class="form-label cursor-pointer text-white">CPF:</label>
           <input type="text" autocomplete="off" class="form-control custom-input" name="cpf" required id="cpf" placeholder="Digite seu CPF">
         </div>
-        <span class="text-danger mb-3" name="error-message">
+        <span class="text-danger mb-3">
           <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
         </span>
       </div>

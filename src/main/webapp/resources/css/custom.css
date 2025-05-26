@@ -16,6 +16,12 @@ main {
   background-color: #ED145B;
 }
 
+.apply-investment-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .primary-button {
   background-color: #ED145B;
   color: white;
@@ -23,6 +29,20 @@ main {
 
   outline: none;
   border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.secondary-button {
+  background-color: transparent;
+  border: 1px solid #ED145B;
+  color: #ED145B;
+  width: 90%;
+
+  outline: none;
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
@@ -190,6 +210,16 @@ main {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance:textfield;
 }
 
 @media screen and (min-width: 480px) {

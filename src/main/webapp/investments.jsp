@@ -25,12 +25,25 @@
               <th class="text-center">Valor</th>
               <th class="text-end">Data</th>
             </tr>
+            <%
+              List<Investment> investments = (List<Investment>) request.getAttribute("investments");
+              if (investments != null && !investments.isEmpty()) {
+                for (Investment inv : investments) {
+            %>
             <tr>
-              <td>CDB</td>
-              <td class="text-center">5.5%</td>
-              <td class="text-center">R$ 450,00</td>
-              <td class="text-end">10/06/2025</td>
+              <td><%= inv.getInvestmentOption().getName() %></td>
+              <td class="text-center"><%= getFormattedRate(inv.getInvestmentOption().getRate()) %></td>
+              <td class="text-center"><%= getFormattedAmount(inv.getAmount()) %></td>
+              <td class="text-end"><%= inv.getCreatedAt() %></td>
             </tr>
+            <%
+              }
+            } else {
+            %>
+            <tr>
+              <td colspan="4" class="text-center">Nenhum investimento encontrado.</td>
+            </tr>
+            <% } %>
           </table>
         </div>
       </div>
@@ -45,14 +58,14 @@
               <th></th>
             </tr>
             <%
-              List<InvestmentOption> investments = (List<InvestmentOption>) request.getAttribute("investmentOptions");
-              if (investments != null && !investments.isEmpty()) {
-                for (InvestmentOption inv : investments) {
+              List<InvestmentOption> investmentOptions = (List<InvestmentOption>) request.getAttribute("investmentOptions");
+              if (investmentOptions != null && !investmentOptions.isEmpty()) {
+                for (InvestmentOption invOption : investmentOptions) {
             %>
             <tr>
-              <td><%= inv.getName() %></td>
-              <td class="text-center"><%= inv.getRiskLevel().getFormattedRisk() %></td>
-              <td class="text-center"><%= getFormattedRate(inv.getRate()) %></td>
+              <td><%= invOption.getName() %></td>
+              <td class="text-center"><%= invOption.getRiskLevel().getFormattedRisk() %></td>
+              <td class="text-center"><%= getFormattedRate(invOption.getRate()) %></td>
               <td class="text-end">
                 <button class="reset-button">
                   <i class="fa-solid fa-sack-dollar simple-icon fa-xl"></i>

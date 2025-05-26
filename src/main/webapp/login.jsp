@@ -25,7 +25,7 @@
           <label for="password" class="form-label cursor-pointer text-white">Senha:</label>
           <input type="password" class="form-control custom-input" name="password" id="password" placeholder="Digite sua senha">
         </div>
-        <span class="text-danger mb-3" name="error-message">
+        <span class="text-danger mb-3">
           <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>
         </span>
       </div>
