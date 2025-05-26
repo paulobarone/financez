@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static br.com.fiap.financez.util.ColorsANSI.*;
-
 public class ConnectionFactory {
   static Dotenv dotenv = Dotenv.load();
 
@@ -23,7 +21,7 @@ public class ConnectionFactory {
         Class.forName("oracle.jdbc.driver.OracleDriver");
         currentConnection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
       } catch (ClassNotFoundException e) {
-        System.err.println(ANSI_RED + "Erro ao carregar o driver JDBC: " + e.getMessage() + ANSI_RESET);
+        System.err.println("Erro ao carregar o driver JDBC: " + e.getMessage());
       }
     }
 

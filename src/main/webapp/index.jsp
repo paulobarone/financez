@@ -24,14 +24,16 @@
         </a>
       </div>
     </header>
-    <main class="main-background d-flex flex-column align-items-center py-4">
+    <main class="main-background d-flex flex-column align-items-center pt-4">
       <div class="box-float">
-        <h2 class="small text-secondary text-uppercase m-0">Seu saldo</h2>
-        <div class="d-flex gap-2">
-          <span class="fs-4 text-white"><%= request.getAttribute("balance") != null ? request.getAttribute("balance") : "0,00" %></span>
-          <button class="reset-button">
-            <i class="fa-solid fa-eye" style="color: #fff;"></i>
+        <div class="d-flex gap-2 align-items-center">
+          <h2 class="small text-secondary text-uppercase m-0">Seu saldo</h2>
+          <button id="toggle-balance" class="reset-button" type="button">
+            <i id="eye-icon" class="fa-solid fa-eye" style="color: #fff;"></i>
           </button>
+        </div>
+        <div class="d-flex gap-2">
+          <span id="balance-value" class="fs-4 text-white"><%= request.getAttribute("balance") != null ? request.getAttribute("balance") : "0,00" %></span>
         </div>
         <div class="buttons-box">
           <a href="investments" class="d-flex align-items-center gap-2 bg-transparent border-0 text-decoration-none">
@@ -94,7 +96,7 @@
         </div>
       </div>
     </main>
-    <footer class="d-flex footer-border justify-content-center gap-4 align-items-center p-4">
+    <footer class="d-flex footer justify-content-center gap-4 align-items-center p-4 fixed-bottom">
       <a href="investments" class="icon-button page-button">
         <i class="fa-solid fa-dollar-sign fa-xl icon"></i>
       </a>
@@ -105,5 +107,25 @@
         <i class="fa-solid fa-calendar-days fa-xl icon"></i>
       </a>
     </footer>
+
+    <script>
+      const eyeButton = document.getElementById('toggle-balance');
+      const balance = document.getElementById('balance-value');
+      const icon = document.getElementById('eye-icon');
+      const realValue = balance.textContent;
+      let hidden = false;
+      eyeButton.addEventListener('click', function() {
+        hidden = !hidden;
+        if (hidden) {
+          balance.textContent = 'R$ *****';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          balance.textContent = realValue;
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      });
+    </script>
   </body>
 </html>

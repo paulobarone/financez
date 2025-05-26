@@ -1,6 +1,5 @@
 package br.com.fiap.financez.controller;
 
-import br.com.fiap.financez.dao.InvestmentDao;
 import br.com.fiap.financez.dao.InvestmentOptionDao;
 import br.com.fiap.financez.model.*;
 import jakarta.servlet.ServletException;
@@ -23,11 +22,7 @@ public class InvestmentServlet extends HttpServlet {
         InvestmentOptionDao investmentOptionDao = new InvestmentOptionDao();
         List<InvestmentOption> investmentOptions = investmentOptionDao.getAll();
 
-        InvestmentDao investmentDao = new InvestmentDao();
-        List<Investment> investments = investmentDao.getAll();
-
         req.setAttribute("investmentOptions", investmentOptions);
-        req.setAttribute("investments", investments);
       } catch (SQLException e) {
         req.setAttribute("errorMessage", e.getMessage());
         req.getRequestDispatcher("login.jsp").forward(req, resp);

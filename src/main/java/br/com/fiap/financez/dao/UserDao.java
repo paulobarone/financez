@@ -16,12 +16,13 @@ public class UserDao {
   }
 
   public void register(User user) throws SQLException {
-    String sql = "INSERT INTO USERS (NAME, EMAIL, PASSWORD, CPF) VALUES (?, ?, ?, ?)";
+    String sql = "INSERT INTO USERS (NAME, EMAIL, PASSWORD, BALANCE, CPF) VALUES (?, ?, ?, ?, ?)";
     try (PreparedStatement stm = connection.prepareStatement(sql, new String[]{"ID_USER"})) {
       stm.setString(1, user.getName());
       stm.setString(2, user.getEmail());
       stm.setString(3, user.getPassword());
-      stm.setString(4, user.getCpf());
+      stm.setDouble(4, user.getBalance());
+      stm.setString(5, user.getCpf());
       stm.executeUpdate();
       try (ResultSet generatedKeys = stm.getGeneratedKeys()) {
         if (generatedKeys.next()) {
@@ -51,9 +52,10 @@ public class UserDao {
           String name = result.getString("name");
           String email = result.getString("email");
           String password = result.getString("password");
+          double balance = result.getDouble("balance");
           String cpf = result.getString("cpf");
           Timestamp createdAt = result.getTimestamp("created_at");
-          return new User(userId, name, email, password, cpf, createdAt);
+          return new User(userId, name, email, password, balance, cpf, createdAt);
         }
       }
     } catch (SQLException e) {
@@ -72,15 +74,28 @@ public class UserDao {
         String name = result.getString("name");
         String email = result.getString("email");
         String password = result.getString("password");
+        double balance = result.getDouble("balance");
         String cpf = result.getString("cpf");
         Timestamp createdAt = result.getTimestamp("created_at");
-        users.add(new User(userId, name, email, password, cpf, createdAt));
+        users.add(new User(userId, name, email, password, balance, cpf, createdAt));
       }
     } catch (SQLException e) {
       System.err.println("Não foi possível coletar os dados dos usuários: " + e.getMessage());
       return null;
     }
     return users;
+  }
+
+  public void updateBalance(int userId, double newBalance) throws SQLException {
+    String sql = "UPDATE users SET balance = ? WHERE id_user = ?";
+    try (PreparedStatement stm = connection.prepareStatement(sql)) {
+      stm.setDouble(1, newBalance);
+      stm.setInt(2, userId);
+      stm.executeUpdate();
+    } catch (SQLException e) {
+      System.err.println("Não foi possível atualizar o saldo do usuário com ID " + userId + ": " + e.getMessage());
+      throw e;
+    }
   }
 
   public void deleteUser(int id) throws SQLException {

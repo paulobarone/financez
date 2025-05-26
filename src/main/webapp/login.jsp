@@ -19,11 +19,11 @@
       <div class="d-flex flex-column gap-1">
         <div class="mb-3">
           <label for="email" class="form-label cursor-pointer text-white">E-mail:</label>
-          <input type="email" class="form-control custom-input" name="email" id="email" placeholder="Digite seu e-mail">
+          <input type="email" value="otavio@gmail.com" class="form-control custom-input" name="email" id="email" placeholder="Digite seu e-mail">
         </div>
         <div class="mb-3">
           <label for="password" class="form-label cursor-pointer text-white">Senha:</label>
-          <input type="password" class="form-control custom-input" name="password" id="password" placeholder="Digite sua senha">
+          <input type="password" value="otavio" class="form-control custom-input" name="password" id="password" placeholder="Digite sua senha">
         </div>
         <span class="text-danger mb-3">
           <%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "" %>

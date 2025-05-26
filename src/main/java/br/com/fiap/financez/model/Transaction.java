@@ -6,31 +6,22 @@ import java.sql.Timestamp;
 
 public class Transaction {
   private int id;
-  private Account account;
+  private User user;
   private double amount;
   private TransactionAction action;
-  private String description;
   private Timestamp createdAt;
 
-  public Transaction(Account account, double amount, TransactionAction action) {
-    this.account = account;
+  public Transaction(User user, double amount, TransactionAction action) {
+    this.user = user;
     this.amount = amount;
     this.action = action;
   }
 
-  public Transaction(Account account, double amount, TransactionAction action, String description) {
-    this.account = account;
-    this.amount = amount;
-    this.action = action;
-    this.description = description;
-  }
-
-  public Transaction(int id, Account account, double amount, TransactionAction action, String description, Timestamp createdAt) {
+  public Transaction(int id, User user, double amount, TransactionAction action, Timestamp createdAt) {
     this.id = id;
-    this.account = account;
+    this.user = user;
     this.amount = amount;
     this.action = action;
-    this.description = description;
     this.createdAt = createdAt;
   }
 
@@ -42,12 +33,12 @@ public class Transaction {
     this.id = id;
   }
 
-  public Account getAccount() {
-    return account;
+  public User getUser() {
+    return user;
   }
 
-  public void setAccount(Account account) {
-    this.account = account;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public double getAmount() {
@@ -64,14 +55,6 @@ public class Transaction {
 
   public void setAction(TransactionAction action) {
     this.action = action;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public Timestamp getCreatedAt() {

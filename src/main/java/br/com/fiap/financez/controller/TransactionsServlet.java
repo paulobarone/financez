@@ -1,8 +1,6 @@
 package br.com.fiap.financez.controller;
 
-import br.com.fiap.financez.dao.AccountDao;
 import br.com.fiap.financez.dao.TransactionDao;
-import br.com.fiap.financez.model.Account;
 import br.com.fiap.financez.model.Transaction;
 import br.com.fiap.financez.model.User;
 import jakarta.servlet.ServletException;
@@ -24,11 +22,9 @@ public class TransactionsServlet extends HttpServlet {
       List<Transaction> transactions = null;
 
       try {
-        AccountDao accountDao = new AccountDao();
         TransactionDao transactionDao = new TransactionDao();
 
-        Account account = accountDao.getAccountByUserId(user.getId());
-        transactions = transactionDao.getTransactionsAccount(account);
+        transactions = transactionDao.getTransactionsUser(user);
 
         req.setAttribute("transactions", transactions);
       } catch (SQLException e) {
